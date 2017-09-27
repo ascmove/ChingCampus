@@ -1,0 +1,87 @@
+/*存放css组件样式*/
+
+body,td,th,input,button,div,span {font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+.inputNoBorderShadow{border:none;box-shadow:none}
+.applycardWhiteCard {margin: 0;background: white;padding: 10px 0 10px 0;}
+.border1pxgray {border: 1px solid #c0c0c0;}
+.shoplist_main_box {-moz-box-shadow: 1px 1px 5px #c2c2c2;-webkit-box-shadow: 1px 1px 5px #c2c2c2;box-shadow: 1px 1px 5px #c2c2c2;}
+.seperatedLine {height:1px;background:#e3e3e3;clear:both;margin:4px 0 4px 0;}
+.avatarStyle{border:4px solid #fff;}
+.commonHeaderBar{width:100%;background:#f8f8f8;position:fixed;text-align:center;height:50px;line-height:48px;color:white;top:0;z-index:1;border-top:1px solid;border-bottom:1px solid #e5e1df;}
+.commonHeaderBar-word{font-size:18px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;width: 80%;display: block;margin: 0 auto;color:#3d4245; font-weight:bold;}
+.commonHeaderBar-word-can{position: absolute;width: 100%;z-index: -3;}
+.circleicon{display: block;width: 27px;height: 27px;text-align: center;margin-right: 12px;border-radius: 18px;color:#f2ab3f;}
+.form-control:focus {outline: none;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0),0 0 8px rgba(0,0,0,0);box-shadow: inset 0 1px 1px rgba(0,0,0,0),0 0 8px rgba(0,0,0,0);}
+.btn-default:hover {outline: none;background-color:#fff;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0),0 0 8px rgba(0,0,0,0);box-shadow: inset 0 1px 1px rgba(0,0,0,0),0 0 8px rgba(0,0,0,0);}
+/*通用白背景input组件重写*/
+.wbg-icon-po{padding:5px 0 0 10px;}
+.wbg-cell{padding:5px 0 5px 0;}
+.borderOrange{ border:1px solid #f2ab3f; color:#fff;background:#f2ab3f;}
+.borderOrange:active,.borderOrange:focus,.borderOrange:hover,.borderOrange:visited{ border:1px solid #f2ab3f; color:#fff;background:#f7941e; }
+.headicon {font-size:22px !important;line-height:29px;color:#f7941e;}
+.cusicon{color:#f7941e;font-size:24px !important;line-height:46px;height:46px;}
+.dotdotdot{text-overflow: ellipsis;white-space: nowrap;overflow:hidden;}
+.orangeFont{color: #f7941e;}
+/*浮动层通用样式*/
+.floatLayer{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff;z-index: 10;}
+.redmark{color:#e84538;}
+.icon_left,.icon_right{width:45px;display:inline;font-size:22px !important;color:#f7941e;}
+.icon_left{float:left;!important}
+.icon_right{float:right;!important}
+/*通用变大字体*/
+.globalBigFont{ font-size:1.2em; };
+/* 卡样的通用样式 */
+.card_number{position:absolute;top:96px;left:92px;text-shadow:#ccc 1px 1px 1px;}
+.card_container{position:relative;display:inline-block;margin-top: 68px;margin-bottom: 0px;width:267px;height:159px;}
+.swiper-button-prev{ top:57% !important; }
+.swiper-button-next{ top:57% !important; }
+.vipcard_bg {/*background: url(../imgs/vipcard_bg.png) repeat-x;*/background-color:#f0f0f0;background-size: 100% 100%;}
+.grayArrow{display:block;color:#a8a8a8;-webkit-transform:rotate(180deg);transform:rotate(180deg);text-align: center;}
+.swiper-container-horizontal>.swiper-pagination {bottom: 0px !important;left: 0;width: 100%;}
+.orangeColor { color:#f7941e }
+.horn-bg {
+	height:29px;
+	line-height:29px;
+	color:#e84538;
+	background:#fdf6ec;
+	overflow:hidden;
+}
+.dishMethod {
+	font-size:12px;
+	color:#9d9d9e;
+}
+.dishMethod span {margin-right:20px;}
+.redColor {color:#f00;}
+	.dishMethodCan {float:left;padding:10px 0 0 0;display:none;}
+	.dishMethod {margin-bottom:2px;}
+	.dishMethodCan dt {width:10%;float:left;line-height:34px;font-size:12px;font-weight:400;}
+	.dishMethodCan dd {width:90%;float:right;}
+	.dishMethodItem {display:inline-block;padding:5px 10px;font-size:12px;margin-right:4px; margin-bottom:8px;border:1px solid #a9a9a9;border-radius:2px;color:#333;}
+	.dishMethodItem.active {color:#fff; background:#f7941e;box-shadow:none!important;border:1px solid #f7941e}
+	#dishRemark {font-size:12px;}
+	.arrow .iconfont {
+	display:block;
+	text-align:center;
+	width:20px;
+	height:29px;
+	text-align:center!important;
+	transform:rotate(0deg);
+	-ms-transform:rotate(0deg); /* Internet Explorer */
+	-moz-transform:rotate(0deg); /* Firefox */
+	-webkit-transform:rotate(0deg); /* Safari 和 Chrome */
+	-o-transform:rotate(0deg); /* Opera */
+	}
+	.transform .iconfont  {
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg); /* Internet Explorer */
+	-moz-transform:rotate(180deg); /* Firefox */
+	-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+	-o-transform:rotate(180deg); /* Opera */
+	}
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<ul class="menu-head-top">
+    <li {if $_W['controller']=='shop'} class="active" {/if}><a href="{php echo webUrl('app')}">平台概述 <i class="fa fa-caret-right"></i></a></li>
+</ul>
+
+
+<div class='menu-header'>首页</div>
+<ul>
+    <!--<li {if $_W['action'] == 'app.adv'} class="active" {/if}><a href="{php echo webUrl('app/adv')}">广告</a></li>-->
+    <li {if $_W['action'] == 'app.banner'} class="active" {/if}><a href="{php echo webUrl('app/banner')}">幻灯片</a></li>
+
+</ul>
+
+<div class='menu-header'>平台</div>
+<ul>
+    <li {if $_W['action'] == 'app.comment'} class="active" {/if}><a href="{php echo webUrl('app/comment')}">评价管理</a></li>
+    <li {if $_W['action'] == 'app.feedback'} class="active" {/if}><a href="{php echo webUrl('app/feedback')}">建议管理</a></li>
+</ul>
+ <ul>

@@ -1,0 +1,85 @@
+{template '_header'}
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class="page-heading">
+	<span class='pull-right'>
+			<a class="btn btn-primary btn-sm" href="{php echo webUrl('app/banner/add')}">添加新幻灯片</a>
+		<a class="btn btn-default  btn-sm" href="{php echo webUrl('app/banner')}">返回列表</a>
+	</span>
+	<h2>{if !empty($item['id'])}编辑{else}添加{/if}幻灯片 <small>{if !empty($item['id'])}修改【{$item['bannername']}】{/if}</small></h2>
+</div>
+
+    <form action="" method="post" class="form-horizontal form-validate" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$item['id']}" />
+ 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">排序</label>
+                    <div class="col-sm-9 col-xs-12">
+                        	<input type="text" name="displayorder" class="form-control" value="{$item['displayorder']}" />
+                        	<span class='help-block'>数字越大，排名越靠前</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label must">幻灯片标题</label>
+                    <div class="col-sm-9 col-xs-12 ">
+                        	<input type="text" id='bannername' name="bannername" class="form-control" value="{$item['bannername']}" data-rule-required="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">幻灯片图片</label>
+                    <div class="col-sm-9 col-xs-12">
+	                        {php echo tpl_form_field_image('thumb', $item['thumb'])}
+	                        <span class='help-block'>建议尺寸:640 * 350 , 请将所有幻灯片图片尺寸保持一致</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">幻灯片链接</label>
+                    <div class="col-sm-9 col-xs-12 ">
+                        <input type="text"  name="link" class="form-control" value="{$item['link']}" data-rule-required="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">展示位置</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {php $pos = explode(',',$item['pos']);}
+                        <label class="checkbox-inline"><input type="checkbox" name="publish" {if in_array('publish',$pos)}checked="checked"{/if}> 下单页</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="rec" {if in_array('rec',$pos)}checked="checked"{/if}> 接单页</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="member" {if in_array('member',$pos)}checked="checked"{/if}> 个人中心页(底部)</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="memcen" {if in_array('memcen',$pos)}checked="checked"{/if}> 个人中心页(中部)</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="pubordermanage" {if in_array('pubordermanage',$pos)}checked="checked"{/if}> 订单管理页</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="servordermanage" {if in_array('servordermanage',$pos)}checked="checked"{/if}> 服务单管理页</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="orderpudet" {if in_array('orderpudet',$pos)}checked="checked"{/if}> 订单详情页(发布者)</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="orderservdet" {if in_array('orderservdet',$pos)}checked="checked"{/if}> 订单详情页(服务者)</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="ordercomdet" {if in_array('ordercomdet',$pos)}checked="checked"{/if}> 订单详情页(未接单时)</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="apply" {if in_array('apply',$pos)}checked="checked"{/if}> 服务申请页</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">状态</label>
+                    <div class="col-sm-9 col-xs-12">
+	                        <label class='radio-inline'>
+	                            <input type='radio' name='enabled' value=1' {if $item['enabled']==1}checked{/if} /> 显示
+	                        </label>
+	                        <label class='radio-inline'>
+	                            <input type='radio' name='enabled' value=0' {if $item['enabled']==0}checked{/if} /> 隐藏
+	                        </label>
+                    </div>
+                </div>
+            
+            	<div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="submit" value="提交" class="btn btn-primary"  />
+                       <input type="button" name="back" onclick='history.back()' style='margin-left:10px;' value="返回列表" class="btn btn-default" />
+                    </div>
+            	</div>
+ 
+    </form>
+{template '_footer'}

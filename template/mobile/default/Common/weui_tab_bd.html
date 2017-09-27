@@ -1,0 +1,134 @@
+<div style="padding-bottom: 50px;padding-top: 46px;" class="weui_tab_bd">
+
+    <div style="" class="container" id="container">
+
+        <input id="order_status" value="{$orderinfo['status']}" hidden="hidden"></input>
+
+
+        <input id="order_out_trade_no" value="{$orderinfo['ordersn']}" hidden="hidden"></input>
+
+
+        <div class="cell">
+            <div style="margin-bottom:70px;" class="bd">
+
+                <div class="weui_cells" style="margin-top:0px;">
+                    <div class="weui_cell" style="padding:0">
+                        <div class="text-center banner">
+                            <a href="https://mp.weixin.qq.com/s/gRS2YBbdnmREezW81M5cZA">
+                                <img style="height:100%;width:100%"
+                                     src="http://cdn.liin.bleege.com/Li-in/static/images/liin/ad_161218.png" alt="">
+                            </a>
+                        </div>
+                        <div class="ad-tips">广告</div>
+                    </div>
+                </div>
+
+
+                <div class="weui_cells_title">联系人信息
+
+                </div>
+                <div class="weui_cells">
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>{$orderinfo['postname']}<a style="margin-left:15px;color:#586c94;-webkit-tap-highlight-color:rgba(0,0,0,0)" href="tel://{$orderinfo['mobile']}">{$orderinfo['mobile']}</a></p>
+                        </div>
+                    </div>
+                    <div id="package_type_select_tips" class="weui_cells_tips"
+                         style="font-size:17px;margin-top:-9px;margin-bottom:3px;text-align: left;">{$orderinfo['school']}&nbsp;{$orderinfo['address']}
+                    </div>
+
+                </div>
+
+
+                <div class="weui_cells_title">订单信息</div>
+                <div class="weui_cells">
+
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>服务类型</p>
+                        </div>
+                        <div class="weui_cell_ft">{$orderinfo['servicetypename']}</div>
+                    </div>
+                    <div class="weui_cell">
+                        <div style="width:100%;min-height:24px;" class="weui_cell_hd">
+                            <div style="position:absolute;dispaly:inline-block;float:left;">服务内容</div>
+                            <div style="dispaly:inline-block;color:#888;margin-left:100px;text-align: right;float:right;">
+                                {$orderinfo['serviceabstract']}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>服务时间</p>
+                        </div>
+                        <div class="weui_cell_ft">{php echo m('service')->getExpire($orderinfo['createtime'],$orderinfo['expiretime'])}</div>
+                    </div>
+
+                    <div class="weui_cell">
+                        <div style="width:100%;min-height:24px;" class="weui_cell_hd">
+                            <div style="position:absolute;dispaly:inline-block;float:left;">服务要求</div>
+                            <div style="dispaly:inline-block;color:#888;margin-left:100px;text-align: right;float:right;">
+                                {$orderinfo['servicedetail']}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>指定性别</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            {if $orderinfo['sexrequire'] == 2}女生{/if}
+                            {if $orderinfo['sexrequire'] == 1}男生{/if}
+                            {if $orderinfo['sexrequire'] == 0}无{/if}
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>订单总额</p>
+                        </div>
+                        <div class="weui_cell_ft">{$orderinfo['price']}元</div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>服务小费</p>
+                        </div>
+                        <div class="weui_cell_ft">{$orderinfo['price']}元</div>
+                    </div>
+
+
+                </div>
+
+                <div class="weui_cells_title">其他信息</div>
+                <div class="weui_cells" style="margin-top:11px;">
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>订单编号</p>
+                        </div>
+                        <div class="weui_cell_ft">{$orderinfo['ordersn']}</div>
+                    </div>
+
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>下单时间</p>
+                        </div>
+                        <div class="weui_cell_ft">{php echo date("y-m-d h:i",$orderinfo['createtime']);}</div>
+                    </div>
+
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>接单时间</p>
+                        </div>
+                        <div class="weui_cell_ft">{php echo date("y-m-d h:i",$orderinfo['createtime']);}</div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

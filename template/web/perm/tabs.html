@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class='menu-header'>权限系统</div>
+
+<ul>
+
+    {ifp 'perm.role'}<li {if $_W['action']=='perm.role'}class="active"{/if}><a href="{php echo webUrl('perm/role')}">角色</a></li>{/if}
+    {ifp 'perm.user'}<li {if $_W['action']=='perm.user'}class="active"{/if}><a href="{php echo webUrl('perm/user')}">操作员</a></li>{/if}
+    {ifp 'perm.log'}<li {if $_W['action']=='perm.log'}class="active"{/if}><a href="{php echo webUrl('perm/log')}">操作日志</a></li>{/if}
+
+</ul>
+ 

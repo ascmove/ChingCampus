@@ -1,0 +1,47 @@
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class='menu-header'>设置</div>
+<ul>
+    <li {if $_W['routes']=='sysset.platform' ||$_W['routes']=='sysset'}class="active"{/if}><a href="{php echo webUrl('sysset/platform')}">基础设置</a></li>
+    <li  {if $_W['routes']=='sysset.adv'}class="active"{/if}><a href="{php echo webUrl('sysset/adv')}">通用广告</a></li>
+    <li {if $_W['routes']=='sysset.treaty'}class="active"{/if}><a href="{php echo webUrl('sysset/treaty')}">协议设置</a></li>
+    <li {if $_W['routes']=='sysset.apply'}class="active"{/if}><a href="{php echo webUrl('sysset/apply')}">申请设置</a></li>
+</ul>
+
+<div class='menu-header'>支付</div>
+<ul>
+    <li  {if $_W['routes']=='sysset.payment.wechat'}class="active"{/if}><a href="{php echo webUrl('sysset/payment/wechat')}">支付方式</a></li>
+</ul>
+
+<div class='menu-header'>会员</div>
+<ul>
+    <li  {if $_W['routes']=='sysset.member.cards'}class="active"{/if}><a href="{php echo webUrl('sysset/member/cards')}">会员卡设置</a></li>
+</ul>
+
+<div class='menu-header'>入口</div>
+<ul>
+    <li {if $_W['routes']=='sysset.cover.release'}class="active"{/if}><a href="{php echo webUrl('sysset/cover/release')}">下单入口</a></li>
+    <li {if $_W['routes']=='sysset.cover.orderhall'}class="active"{/if}><a href="{php echo webUrl('sysset/cover/orderhall')}">大厅入口</a></li>
+    <li {if $_W['routes']=='sysset.cover.notice'}class="active"{/if}><a href="{php echo webUrl('sysset/cover/notice')}">通知设置入口</a></li>
+    <li  {if $_W['routes']=='sysset.cover.home'}class="active"{/if}><a href="{php echo webUrl('sysset/cover/home')}">我的主页入口</a></li>
+    <li {if $_W['routes']=='sysset.cover.myrelease'}class="active"{/if}><a href="{php echo webUrl('sysset/cover/myrelease')}">我下的单入口</a></li>
+    <li {if $_W['routes']=='sysset.cover.myservice'}class="active"{/if}><a href="{php echo webUrl('sysset/cover/myservice')}">我接的单入口</a></li>
+</ul>
+
+
+<div class='menu-header'>消息</div>
+<ul>
+    <li  {if $_W['routes']=='sysset.notice'}class="active"{/if}><a href="{php echo webUrl('sysset/notice')}">消息提醒</a></li>
+</ul>
+
+<div class='menu-header'>短信配置</div>
+<ul>
+    <li  {if $_W['routes']=='sysset.sms.set'}class="active"{/if}><a href="{php echo webUrl('sysset/sms/set')}">短信接口设置</a></li>
+    <li {if $_W['routes']=='sysset.sms.temp'}class="active"{/if}><a href="{php echo webUrl('sysset/sms/temp')}">短信消息库</a></li>
+</ul>

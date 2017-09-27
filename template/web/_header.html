@@ -1,0 +1,55 @@
+{template '_header_base'}
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<style>
+    .deg180{
+        transform:rotate(180deg);
+        -ms-transform:rotate(180deg); 	/* IE 9 */
+        -moz-transform:rotate(180deg); 	/* Firefox */
+        -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+        -o-transform:rotate(180deg); 	/* Opera */
+    }
+</style>
+<div class="navbar-collapse collapse" id="navbar">
+    {php $routes = explode(".", $GLOBALS['_W']['routes']);}
+    <ul class="nav navbar-nav gray-bg">
+
+        <li {if $_W['controller']=='app'} class="active"{/if}><a href="{php echo webUrl()}">首页</a></li>
+        <li {if ($_W['controller']=='service')&&($_W['routes']!='service.type')} class="active"{/if}><a href="{php echo webUrl('service')}"> 区域</a></li>
+        <li {if $_W['routes']=='service.type'} class="active"{/if}><a href="{php echo webUrl('service/type',array('service'=>'enable'))}"> 服务</a></li>
+        <li {if ($_W['controller']=='member')&&(($_W['routes']!='member.apply')&&($_W['routes']!='member.servant'))} class="active"{/if}><a href="{php echo webUrl('member')}"> 用户</a></li>
+        <li {if ($_W['routes']=='member.apply')||($_W['routes']=='member.servant')} class="active"{/if}><a href="{php echo webUrl('member/apply')}"> 申请</a></li>
+        <li {if $_W['controller']=='order'} class="active"{/if}><a href="{php echo webUrl('order')}"> 订单</a></li>
+        <li {if $_W['controller']=='sr'} class="active"{/if}><a href="{php echo webUrl('sr')}"> 维权</a></li>
+        <li {if $_W['controller']=='finance'} class="active"{/if}><a href="{php echo webUrl('finance')}"> 财务</a></li>
+      	<li {if $_W['controller']=='sysset'} class="active"{/if}><a href="{php echo webUrl('sysset')}"> 设置</a></li>
+
+    </ul>
+    <ul class="nav navbar-nav gray-bg navbar-right">
+        {if $_W['isfounder']}
+        <li><a href="./index.php?c=account&a=display&">返回系统   <i class="icon icon-forward"></i></a></li>
+        {else}
+        <li><a href="./index.php?c=user&a=logout&">注销<i class="icon icon-forward"></i></a></li>
+        {/if}
+    </ul>
+
+</div>
+</nav>				
+</div>
+<div class='wrapper main-wrapper wrapper-content '>
+{if $no_left}
+    <div class="page-content" style="width:1000px">
+{else}
+    <div class="page-menubar">
+{php echo $this->frame_menus()}
+    </div>
+    <div class="page-content">
+{/if}
+        
+

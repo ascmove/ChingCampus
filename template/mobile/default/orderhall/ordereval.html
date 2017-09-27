@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>用户评价</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link rel="icon" href="{$_W['appicon']}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/example.css?t=1202"/>
+
+    <style type="text/css">
+        .left_icon {
+            line-height:48px;
+            margin-left:17px;
+            color:#999;
+            font-size:18px;
+        }
+
+        .left_icon:before {
+            content: " ";
+            display: inline-block;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            height: 10px;
+            width: 10px;
+            border-width: 0 0 2px 2px;
+            border-color: #c7c7cc;
+            border-style: solid;
+            position: relative;
+            /* top: 0px;
+            position: absolute; */
+            top: 0px;
+            margin-right:1px;
+        }
+
+        #raty img {
+            width: 30px;
+        }
+
+        .assess_tag div{
+            margin-right:10px;
+            margin-top:8px;
+            border:1px solid #888;
+            float:left;
+            padding:0 7px;
+            color:#888;
+            height:35px;
+            line-height:35px;
+        }
+
+    </style>
+
+</head>
+<body ontouchstart="">
+
+<div class="container" id="container">
+
+
+
+
+    <div style="height:46px;padding:0;background-color:#fff;" class="weui_navbar">
+            <div onclick="history.go(-1);" style="position: absolute;top: 0px;left:0px;display: inline-block;height:46px;line-height:46px;width:100px;">
+            <a class="left_icon" >返回</a>
+            </div>
+    </div>
+
+
+    <div class="weui_cells" style="margin-top:10px;background-color:#fff;">
+
+        <div class="weui_cell">
+            <div style="width:100%;min-height:24px;" class="weui_cell_hd">
+                <div style="position:absolute;dispaly:inline-block;">服务类别</div>
+                <div style="dispaly:inline-block;color:#888;margin-left:100px;">{$orderinfo['servicetypename']}</div>
+            </div>
+        </div>
+
+
+
+        <div class="weui_cell" style="padding-top:7px;padding-bottom:0">
+            <div style="width:100%;min-height:24px;" class="weui_cell_hd">
+                <div style="position:absolute;top:11px;dispaly:inline-block;">用户评分</div>
+                <div style="dispaly:inline-block;color:#888;margin-left:100px;">
+                    <div id="raty" style="-webkit-tap-highlight-color:rgba(0,0,0,0);overflow:hidden;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="weui_cell assess_tag" style="display:inline-block;padding:5px 0 5px 15px;width:100%">
+
+        </div>
+
+        <div class="weui_cells_checkbox cell_defriend" id="cell_defriend" >
+            <label class="weui_cell" for="checkbox_defriend" style="padding:0px 15px;margin-bottom:10px">
+                <div class="weui_cell_hd ">
+                    <input type="checkbox" class="weui_check cell_defriend"  name="checkbox_defriend" id="checkbox_defriend">
+                    <i class="weui_icon_checked"></i>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p style="padding-top:3px">把Ta加入黑名单</p>
+                </div>
+            </label>
+        </div>
+
+
+        <div class="weui_cell" id="text_area">
+            <div class="weui_cell_bd weui_cell_primary position_ ">
+					<textarea id="text_evel_detail" class="weui_textarea"
+                              placeholder="选填，可以写下你对Ta的评价哦（1-500个字）" rows="3"></textarea>
+                <div class="weui_textarea_counter">
+                    <span id="text_evel_detail_count">0</span>/500
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="weui_opr_area" style="padding-bottom:15px;">
+        <p class="weui_btn_area">
+            <a href="javascript:eval_submit();"
+               class="weui_btn weui_btn_primary">提交</a>
+        </p>
+    </div>
+
+</div>
+
+<!-- loading toast -->
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p id="weui_loading_tips" class="weui_toast_content">提交资料中</p>
+    </div>
+</div>
+
+<!--BEGIN dialog-->
+<div class="weui_dialog_confirm" id="dialog_confirm_tips"
+     style="display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd">
+            <strong class="weui_dialog_title">信息确认</strong>
+        </div>
+        <div class="weui_dialog_bd" id="tips_content">信息内容?</div>
+        <div class="weui_dialog_ft">
+            <a
+                    href="javascript:$('#dialog_confirm_tips').hide();on_pay_state = false;"
+                    class="weui_btn_dialog default">取消</a> <a href="javascript:;"
+                                                              class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+
+<!--BEGIN tips_dialog-->
+<div class="weui_dialog_alert" id="commom_dialog_tips"
+     style="z-index:10;display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd">
+            <strong class="weui_dialog_title">弹窗标题</strong>
+        </div>
+        <div class="weui_dialog_bd">弹窗内容，告知当前页面信息等</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:goBack();" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../addons/ching_leeing/template/mobile/default/static/js/jquery-1.9.1.min.js"></script>
+<script src="../addons/ching_leeing/template/mobile/default/static/js/jquery.raty.js"></script>
+<script>
+
+    $('.assess_tag').hide();
+    $('#cell_defriend').hide();
+    var successFlag = 0;
+    var curRole = 1;
+    function goBack(){
+        if (!successFlag) return false;
+        window.location.href='{php echo mobileLink('orderhall/getuserorderdetail')}&outTradeNo={$orderinfo['ordersn']}&t='+new Date().getTime();
+    }
+
+    function showCommomDialogTips(title,content){
+        $('#commom_dialog_tips .weui_dialog_title').text(title);
+        $('#commom_dialog_tips .weui_dialog_bd').html(content);
+        $('#commom_dialog_tips').show().on('click', '.weui_btn_dialog', function () {
+            $('#commom_dialog_tips').off('click').hide();
+        });
+    }
+
+    $("#text_area").on('click', function(e){
+        //Android 手机下, input 或 textarea 元素聚焦时, 主动滚一把
+        if (/Android/gi.test(navigator.userAgent)) {
+            window.addEventListener('resize', function () {
+                if (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA') {
+                    window.setTimeout(function () {
+                        document.activeElement.scrollIntoViewIfNeeded();
+                    }, 0);
+                }
+            });
+        }
+    });
+
+
+    $('#raty').raty({
+        score:0,
+        starOff:"{CHING_LEEING_LOCAL}template/mobile/default/static/images/star-off.png?t=1",
+        starOn:"{CHING_LEEING_LOCAL}template/mobile/default/static/images/star-on.png?t=1",
+        starHalf:"{CHING_LEEING_LOCAL}template/mobile/default/static/images/star-half.png?t=1",
+    });
+
+
+    var tag_flag_arr = [0,0,0,0,0,0,0,0];   //评价状态的样式点击后来回改变的参数标识
+
+    function change_style(n){
+        //alert(e);
+        if(tag_flag_arr[n]==0){
+            $(".assess_tag div:nth-child("+n+")").css({"border-color":"orange","color":"orange"});
+            tag_flag_arr[n]=1;
+        }else{
+            $(".assess_tag div:nth-child("+n+")").css({"border-color":"#888","color":"#888"});
+            tag_flag_arr[n]=0;
+        }
+
+    }
+
+
+    var AssessTypeInfoList = new Array();
+    AssessTypeInfoList[0] = "";
+    if (curRole==0){
+        AssessTypeInfoList[1] = new Array("速度非常慢","态度很差","非常不满意") ;
+        AssessTypeInfoList[2] = new Array("速度慢","态度差","不满意") ;
+        AssessTypeInfoList[3] = new Array("速度一般","态度一般","满意") ;
+        AssessTypeInfoList[4] = new Array("速度快","态度好","总体满意") ;
+        AssessTypeInfoList[5] = new Array("速度非常快","做事认真","服务完美") ;
+    }else{
+        AssessTypeInfoList[1] = new Array("很坑人","态度很差","小费非常少") ;
+        AssessTypeInfoList[2] = new Array("有点坑","态度差","小费较少") ;
+        AssessTypeInfoList[3] = new Array("描述一般","态度一般","小费刚好") ;
+        AssessTypeInfoList[4] = new Array("描述清晰","态度好","小费挺多") ;
+        AssessTypeInfoList[5] = new Array("简直赚翻了","好好人","非常土豪") ;
+    }
+
+
+    var curScore = 0;
+
+    $('#raty').click(function(){
+        $('.assess_tag').show();
+        curScore=$('#raty').raty('score');
+        switch(curScore){
+            case 1:
+                $('.assess_tag').empty();
+                for(var i=1;i<=AssessTypeInfoList[1].length;i++){
+                    $('.assess_tag').append("<div onclick='change_style("+ i +")' >"+AssessTypeInfoList[1][i-1]+"</div>");
+                }
+                tag_flag_arr = [0,0,0,0,0,0,0,0,];
+                break;
+            case 2:
+                $('.assess_tag').empty();
+                for(var i=1;i<=AssessTypeInfoList[2].length;i++){
+                    $('.assess_tag').append("<div onclick='change_style("+ i +")' >"+AssessTypeInfoList[2][i-1]+"</div>");
+                }
+                tag_flag_arr = [0,0,0,0,0,0,0,0,];
+                break;
+            case 3:
+                $('.assess_tag').empty();
+                for(var i=1;i<=AssessTypeInfoList[3].length;i++){
+                    $('.assess_tag').append("<div onclick='change_style("+ i +")' >"+AssessTypeInfoList[3][i-1]+"</div>");
+                }
+                tag_flag_arr = [0,0,0,0,0,0,0,0,];
+                break;
+            case 4:
+                $('.assess_tag').empty();
+                for(var i=1;i<=AssessTypeInfoList[4].length;i++){
+                    $('.assess_tag').append("<div onclick='change_style("+ i +")' >"+AssessTypeInfoList[4][i-1]+"</div>");
+                }
+                tag_flag_arr = [0,0,0,0,0,0,0,0,];
+                break;
+            case 5:
+                $('.assess_tag').empty();
+                for(var i=1;i<=AssessTypeInfoList[5].length;i++){
+                    $('.assess_tag').append("<div onclick='change_style("+ i +")' >"+AssessTypeInfoList[5][i-1]+"</div>");
+                }
+                tag_flag_arr = [0,0,0,0,0,0,0,0,];
+                break;
+        }
+
+        if (curScore<=3){  //显示拉黑
+            $('#cell_defriend').show();
+        }else{
+            $('#cell_defriend').hide();
+        }
+
+    });
+
+    //自动判断字数
+    $('#text_evel_detail').on('input propertychange', function () {
+        var str = $(this).val();
+        $("#text_evel_detail_count").text(str.length);
+    });
+
+    function eval_submit(){
+        if (curScore<=0){
+            showCommomDialogTips("提示","请先点击星星图标给Ta评分哦");
+            return false;
+        }
+        if ($('#text_evel_detail').val().length>500){
+            showCommomDialogTips("提示","已经超过了500字哦");
+            return false;
+        }
+
+        var evalTags = "";
+        for(var i=0; i < AssessTypeInfoList[curScore].length;i++){
+            if (tag_flag_arr[i+1]==1){
+                evalTags = evalTags + AssessTypeInfoList[curScore][i] +"|";
+            }
+        }
+        var p = $.param({
+            role:curRole,
+            outTradeNo:'{$orderinfo['ordersn']}',
+            score:curScore,
+            evalTags:evalTags,
+            evalContent:$('#text_evel_detail').val(),
+            defriend: $("#checkbox_defriend").prop("checked")?1:0
+        });
+        //alert(p);
+
+        $("#weui_loading_tips").text("提交请求中");
+        $('#loadingToast').show();
+
+        $.getJSON('{php echo mobileLink('orderhall/orderEvalSubmit')}&'+p, function (res) {
+            $('#loadingToast').hide();
+            if (res.code==0){
+                successFlag = 1;
+                showCommomDialogTips("提示","评价成功!");
+            }else{
+                showCommomDialogTips("提交失败","你是否已经评价了呢？");
+            }
+
+        });
+    }
+</script>
+<script language='javascript'>
+    $(function () {
+        $.getJSON("{php echo mobileUrl('util/task')}");
+    })
+</script>
+</html>
+

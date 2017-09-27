@@ -1,0 +1,33 @@
+<div class="fui-navbar">
+
+    <a href="{php echo mobileUrl()}" class="external nav-item {if $_W['routes']=='' ||  $_W['routes']=='index'}active{/if}">
+        <span class="icon icon-form"></span>
+        <span class="label">下单</span>
+    </a>
+
+    <a href="{php echo mobileUrl('order/hall')}" class="external nav-item {if $_W['routes']=='order.hall'}active{/if}" id="menucart">
+        <span class="icon icon-qiang"></span>
+        <span class="label">接单</span>
+        <span class='badge badgeOrderDisplayMenu' {if $badgeOrderDisplay == 0} style="display: none;"{/if}>{$badgeOrderDisplay}</span>
+    </a>
+
+    <a href="{php echo mobileUrl('member')}" class="external nav-item  {if $_W['routes']=='member'}active{/if}">
+        <span class="icon icon-person2"></span>
+        <span class="label">我的</span>
+    </a>
+</div>
+<script>
+    $(function () {
+        setInterval(function(){
+            $.ajax({
+                type: "GET",
+                url: "{php echo mobileUrl('member/menuajax')}",
+                dataType: "json",
+                success: function (data) {
+                    var json = data.result;
+                    if(json.f > 0) {$(".badgeOrderDisplayMenu").show().text(json.f)}else{$(".badgeOrderDisplayMenu").hide();};
+                }
+            });
+        },3000);
+    });
+</script>

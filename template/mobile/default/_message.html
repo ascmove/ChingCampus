@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>提示</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/example.css?t=1202"/>
+    <style type="text/css">
+        .slide{
+            position: relative;
+            /* max-width: 640px; */
+            overflow: hidden;
+            margin: 0px auto;
+            width: 100%;
+            height: 100%;
+        }
+        .slide:after{
+            content: '';
+            display: block;
+            width: 100%;
+            padding-top: 100px;
+        }
+        .slide ul{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /* 防止点击闪烁 */
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            /* overflow: hidden; 不能使用此样式*/
+        }
+        .slide li{
+            list-style: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        /* 解决js阻塞页面显示首屏 */
+        .slide li:first-child{
+            z-index: 1;
+        }
+
+        .slide li a{
+            position: absolute;
+            /* left: -50%; */
+            left: 0;
+            top: 0;
+            /* width: 200%; */
+            width: 100%;
+            height: 100%;
+            text-align:center;
+        }
+
+        .slide li img{
+            width: 100%;
+
+            display:block;
+            height:100%;
+            margin:0 auto;
+            border: none;
+        }
+
+        .slide .dot{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            z-index: 2;
+            font-size: 0;
+        }
+        .slide .dot span{
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            margin-left: 5px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+        }
+        .slide .dot .cur{
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body ontouchstart="">
+<div class="container" id="container">
+
+
+{template '_banner'}
+
+
+    <div class="weui_msg">
+        <div class="weui_icon_area"><i class="weui_icon_msg weui_icon_{if $type=='error'}info{elseif $type=='success'}success{else}info{/if}"></i></div>
+        <div class="weui_text_area">
+            <h2 class="weui_msg_title">{$message}</h2>
+        </div>
+
+
+        {if $buttondisplay}
+        <div class="weui_opr_area">
+            {if $type=='error'}
+            <p class="weui_btn_area">
+                <a href='{$redirect}' class="weui_btn weui_btn_primary">{if empty($buttontext)}确认{else}{$buttontext}{/if}</a>
+            </p>
+            {elseif $type=='success'}
+            <p class="weui_btn_area">
+                <a href='{$redirect}' class="weui_btn weui_btn_primary">{if empty($buttontext)}确认{else}{$buttontext}{/if}</a>
+            </p>
+            {else}
+            <p class="weui_btn_area">
+                <a href='{$redirect}' class="weui_btn weui_btn_primary">{if empty($buttontext)}确认{else}{$buttontext}{/if}</a>
+            </p>
+            {/if}
+        </div>
+        {/if}
+
+    </div>
+
+
+</div>
+
+</body>
+<script src="../addons/ching_leeing/template/mobile/default/static/js/zepto.min.js"></script>
+<script src="../addons/ching_leeing/template/mobile/default/static/js/swipeSlide.min.js"></script>
+<script>
+
+    $(function () {
+
+        $('#banner_slide').swipeSlide({
+            lazyLoad : true,
+            autoSwipe : true,
+            continuousScroll:true,
+            speed : 2500,
+            transitionType : 'cubic-bezier(0.22, 0.69, 0.72, 0.88)',
+            firstCallback : function(i,sum,me){
+                me.find('.dot').children().first().addClass('cur');
+            },
+            callback : function(i,sum,me){
+                me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        });
+
+    });
+
+</script>
+</html>

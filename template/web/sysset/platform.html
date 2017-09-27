@@ -1,0 +1,119 @@
+{template '_header'}
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class="page-heading"> <h2>平台设置</h2> </div>
+
+    <form action="" method="post" class="form-horizontal form-validate" enctype="multipart/form-data" >
+        <div class="form-group">
+            <label class="col-sm-2 control-label">平台名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="data[name]" class="form-control" value="{$data['name']}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">平台LOGO</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('data[logo]', $data['logo'])}
+                <span class='help-block'>正方型图片</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">客服二维码</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('data[qrcode]', $data['qrcode'])}
+                <span class='help-block'>正方型图片，用于审核联系</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">客服电话</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="data[tel]" class="form-control" value="{$data['tel']}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">平台简介</label>
+            <div class="col-sm-9 col-xs-12">
+                <textarea name="data[description]" class="form-control richtext" cols="70">{$data['description']}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">使用服务设置独立计费</label>
+                <div class="col-sm-2 pull-right" style="padding-top:10px;text-align: right;right: 73px;">
+                    <input type="checkbox" class="js-switch" name="data[switch]" value="1" placeholder="" {if $data['switch']==1}checked{/if}>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">平台统一手续费</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" name="data[fee]" class="form-control" value="{$data['fee']}" placeholder="关闭独立计费此项才生效"/>
+                    <div class="input-group-addon">百分比（%）</div>
+                </div>
+                <span class='help-block'>每个订单支付的费用将作为平台手续费。（不包含追加付款！）</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">提现手续费</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" name="data[with_fee]" class="form-control" value="{$data['with_fee']}" placeholder="为空默认不收费"/>
+                    <div class="input-group-addon">百分比（%）</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">最低提现金额</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" name="data[with_min]" class="form-control" value="{$data['with_min']}"/>
+                    <div class="input-group-addon">元</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">自动确认时间</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" name="data[confirm_delay]" class="form-control" value="{$data['confirm_delay']}" placeholder="默认48小时"/>
+                    <div class="input-group-addon">小时</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">未支付超时时间</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="input-group">
+                    <input type="text" name="data[expire_delay]" class="form-control" value="{$data['expire_delay']}" placeholder="默认48小时"/>
+                    <div class="input-group-addon">小时</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Websocket聊天地址</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="data[ws_addr]" class="form-control" value="{$data['ws_addr']}" placeholder="请勿填写[http://],域名结尾不要添加[/]"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Websocket聊天端口</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="data[ws_port]" class="form-control" value="{$data['ws_port']}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="submit" value="提交" class="btn btn-primary"  />
+            </div>
+        </div>
+
+    </form>
+ 
+{template '_footer'}

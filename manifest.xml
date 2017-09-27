@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<manifest xmlns="http://www.we7.cc" versionCode="0.6,0.7,0.8">
+    <application setting="false">
+        <name><![CDATA[芝麻校园]]></name>
+        <identifie><![CDATA[ching_leeing]]></identifie>
+        <version><![CDATA[2.85]]></version>
+        <type><![CDATA[business]]></type>
+        <ability><![CDATA[芝麻校园 更新群：126685962]]></ability>
+        <description><![CDATA[芝麻校园 更新群：126685962]]></description>
+        <author><![CDATA[douhaotech]]></author>
+        <url><![CDATA[douhaotech]]></url>
+    </application>
+    <platform>
+        <subscribes>
+            <message type="text"/>
+            <message type="image"/>
+            <message type="voice"/>
+            <message type="video"/>
+            <message type="shortvideo"/>
+            <message type="location"/>
+            <message type="link"/>
+            <message type="subscribe"/>
+            <message type="unsubscribe"/>
+            <message type="qr"/>
+            <message type="trace"/>
+            <message type="click"/>
+            <message type="view"/>
+            <message type="merchant_order"/>
+        </subscribes>
+        <handles>
+            <message type="text"/>
+            <message type="image"/>
+            <message type="voice"/>
+            <message type="video"/>
+            <message type="shortvideo"/>
+            <message type="location"/>
+            <message type="link"/>
+            <message type="subscribe"/>
+            <message type="qr"/>
+            <message type="trace"/>
+            <message type="click"/>
+            <message type="merchant_order"/>
+        </handles>
+        <rule embed="false"/>
+        <card embed="false"/>
+    </platform>
+    <bindings>
+        <cover>
+            <entry title="商城入口" do="mobile" state="" direct="false"/>
+        </cover>
+        <menu call="getMenus">
+        </menu>
+    </bindings>
+    <permissions>
+    </permissions>
+    <install><![CDATA[install.php]]></install>
+    <uninstall><![CDATA[]]></uninstall>
+    <upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,133 @@
+{template '_header'}
+
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class="page-heading">
+    <span class='pull-right'>
+    </span>
+    <h2>评论管理</h2> </div>
+
+<form action="./index.php" method="get" class="form-horizontal form-search" role="form">
+    <input type="hidden" name="c" value="site" />
+    <input type="hidden" name="a" value="entry" />
+    <input type="hidden" name="m" value="ching_leeing" />
+    <input type="hidden" name="do" value="web" />
+    <input type="hidden" name="r"  value="app.comment" />
+    <div class="page-toolbar row m-b-sm m-t-sm">
+        <div class="col-sm-3">
+            <div class="input-group-btn">
+                <button class="btn btn-default btn-sm"  type="button" data-toggle='refresh'><i class='fa fa-refresh'></i></button>
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('app/comment/delete')}"><i class='fa fa-trash'></i> 删除</button>
+            </div>
+        </div>
+        <div class="col-sm-9 pull-right">
+
+            <div class='input-group input-group-sm'  style='float:left;'  >
+                {php echo tpl_daterange('time', array('sm'=>true,'placeholder'=>'请选择评论时间'),true);}
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="input-sm form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="评价内容"> <span class="input-group-btn">
+                    		
+                    <button class="btn btn-sm btn-primary" type="submit"> 搜索</button> </span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+{if count($list)>0}
+<table class="table table-hover table-responsive">
+    <thead>
+    <tr>
+        <th style="width:25px;"><input type='checkbox' /></th>
+        <th style='width:60px;'>被评价</th>
+        <th style='width:135px;'></th>
+        <th style='width:100px;'>评价者</th>
+        <th style='width:95px;'>评分等级</th>
+        <th style='width:280px;text-align: center'>评价内容</th>
+        <th style='width:100px;'>评价时间</th>
+        <th style='width:300px;'>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {loop $list $row}
+    <tr rel="pop" data-title="评论详情" data-content="{$row['evalcontent']}">
+        {php unset($f_info);unset($t_info);$f_info = m('member')->getInfo($row['from_openid']);$t_info = m('member')->getInfo($row['to_openid']);}
+        <td>
+            <input type='checkbox'   value="{$row['id']}"/>
+        </td>
+        <td>
+            <img src="{$t_info['avatar']}" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
+        </td>
+        <td>
+            {$t_info['nickname']}<br/><small>{$t_info['school']}</small>
+        </td>
+        <td >
+            <span data-toggle='tooltip' title='{$f_info['nickname']}'><img src="{$f_info['avatar']}" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
+            {$f_info['nickname']}</span></td>
+        <td style="color:#ff6600">
+            {if $row['score']>=1}<i class='fa fa-star'></i>{else}<i class='fa fa-star-o'></i>{/if}
+            {if $row['score']>=2}<i class='fa fa-star'></i>{else}<i class='fa fa-star-o'></i>{/if}
+            {if $row['score']>=3}<i class='fa fa-star'></i>{else}<i class='fa fa-star-o'></i>{/if}
+            {if $row['score']>=4}<i class='fa fa-star'></i>{else}<i class='fa fa-star-o'></i>{/if}
+            {if $row['score']>=5}<i class='fa fa-star'></i>{else}<i class='fa fa-star-o'></i>{/if}
+        </td>
+
+        <td style="text-align: center">
+            {$row['evalcontent']}
+        </td>
+        <td >
+            {php echo date('Y-m-d', $row['evaltime'])}<br/>{php echo date('H:i:s', $row['evaltime'])}
+        </td>
+        <td>
+            <a class='btn btn-default  btn-sm'  data-toggle='ajaxRemove'   href="{php echo webUrl('app/comment/delete', array('id' => $row['id']))}" data-confirm="确认删除此评价吗？"><i class="fa fa-trash"></i> 删除</a>
+        </td>
+    </tr>
+    {/loop}
+    </tbody>
+</table>
+{$pager}
+{else}
+<div class='panel panel-default'>
+    <div class='panel-body' style='text-align: center;padding:30px;'>
+        暂时没有任何评价!
+    </div>
+</div>
+{/if}
+<script language="javascript">
+    require(['bootstrap'],function(){
+        $("[rel=pop]").popover({
+            trigger:'manual',
+            placement : 'left',
+            title : $(this).data('title'),
+            html: 'true',
+            content : $(this).data('content'),
+            animation: false
+        }).on("mouseenter", function () {
+            var _this = this;
+            $(this).popover("show");
+            $(this).siblings(".popover").on("mouseleave", function () {
+                $(_this).popover('hide');
+            });
+        }).on("mouseleave", function () {
+            var _this = this;
+            setTimeout(function () {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("hide")
+                }
+            }, 100);
+        });
+
+
+    });
+</script>
+{template '_footer'}

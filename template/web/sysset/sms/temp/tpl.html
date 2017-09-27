@@ -1,0 +1,30 @@
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class="form-group sms-template-1 data-item">
+    <label class="col-sm-2 control-label {ifp 'sysset.sms.temp.edit'}must{/if}">数据值</label>
+    <div class="col-sm-9 col-xs-12">
+        {ife 'sysset.sms.temp' $item}
+        <div class="input-group form-group" style="margin: 0;">
+            <span class="input-group-addon">短信模版变量</span>
+            <input type="text" name="data_temp[]" class="form-control valid" value="{$data['data_temp']}">
+            <span class="input-group-addon" style="border-left: 0; border-right: 0;">平台变量</span>
+            <input type="text" name="data_shop[]" class="form-control valid" value="{$data['data_shop']}">
+            <span class="input-group-addon btn btn-default data-item-delete"><i class="fa fa-remove"></i> 删除</span>
+        </div>
+        <span class="help-block">平台变量替换模板变量，例如：模版变量=ordensn 平台变量=[订单编号]，<span class="text-danger">仅填英文变量即可</span></span>
+        {else}
+        <div class="input-group form-group" style="margin: 0;">
+            <span class="input-group-addon">模版变量</span>
+            <span class="form-control">{$data['data_temp']}</span>
+            <span class="input-group-addon" style="border-left: 0; border-right: 0;">平台变量</span>
+            <span class="form-control">{$data['data_shop']}</span>
+        </div>
+        {/if}
+    </div>
+</div>

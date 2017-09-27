@@ -1,0 +1,101 @@
+{template '_header'}
+
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class="page-heading">
+    <span class='pull-right'>
+    </span>
+    <h2>建议列表</h2> </div>
+
+<form action="./index.php" method="get" class="form-horizontal form-search" role="form">
+    <input type="hidden" name="c" value="site" />
+    <input type="hidden" name="a" value="entry" />
+    <input type="hidden" name="m" value="ching_leeing" />
+    <input type="hidden" name="do" value="web" />
+    <input type="hidden" name="r"  value="app.feedback" />
+
+    <div class="page-toolbar row m-b-sm m-t-sm">
+        <div class="col-sm-3">
+
+            <div class="input-group-btn">
+                <button class="btn btn-default btn-sm"  type="button" data-toggle='refresh'><i class='fa fa-refresh'></i></button>
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('app/feedback/delete')}"><i class='fa fa-trash'></i> 删除</button>
+            </div>
+        </div>
+
+        <div class="col-sm-9 pull-right">
+
+            <div class='input-group input-group-sm'  style='float:left;'  >
+                {php echo tpl_daterange('time', array('sm'=>true,'placeholder'=>'请选择建议时间'),true);}
+            </div>
+
+            <div class="input-group">
+                <input type="text" class="input-sm form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="建议内容"> <span class="input-group-btn">
+                    		
+                    <button class="btn btn-sm btn-primary" type="submit"> 搜索</button> </span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+{if count($list)>0}
+<table class="table table-hover table-responsive">
+    <thead>
+    <tr>
+        <th style="width:25px;"><input type='checkbox' /></th>
+        <th style='width:130px;'>建议者</th>
+        <th style='width:110px;'>联系方式</th>
+        <th style='width:500px;'>建议内容</th>
+        <th style='width:100px;'>时间</th>
+        <th style='width:300px;'>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {loop $list $row}
+    <tr>
+
+        <td>
+            <input type='checkbox'   value="{$row['id']}"/>
+        </td>
+        <td >
+            <span data-toggle='tooltip' title='{$row['nickname']}'><img src="{php echo tomedia($row['headimgurl'])}" style="width: 30px; height: 30px;border:1px solid #ccc;padding:1px;">
+            {if !empty($row['name'])}{$row['name']}{else}{$row['nickname']}{/if}
+            </span>
+        </td>
+        <td >
+            <span data-toggle='tooltip' title='{$row['contact']}'>
+            {$row['contact']}
+            </span>
+        </td>
+        <td style="white-space:normal">
+            {$row['content']}
+        </td>
+
+        <td >
+            {php echo date('Y-m-d', $row['createtime'])}<br/>{php echo date('H:i:s', $row['createtime'])}
+        </td>
+        <td>
+            <a class='btn btn-default  btn-sm'  data-toggle='ajaxRemove'   href="{php echo webUrl('app/feedback/delete', array('id' => $row['id']))}" data-confirm="确认删除此建议吗？"><i class="fa fa-trash"></i> 删除</a>
+        </td>
+    </tr>
+    {/loop}
+    </tbody>
+</table>
+{$pager}
+{else}
+<div class='panel panel-default'>
+    <div class='panel-body' style='text-align: center;padding:30px;'>
+        暂时没有任何建议!
+    </div>
+</div>
+{/if}
+{template '_footer'}

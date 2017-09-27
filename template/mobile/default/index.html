@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>发布-{$_W['appname']}</title>
+    <link rel="icon" href="{$_W['appicon']}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/example.css?v=3"/>
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/index.css"/>
+    <link href="../addons/ching_leeing/template/mobile/default/static/css/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../addons/ching_leeing/template/mobile/default/static/js/jquery-1.9.1.min.js"></script>
+
+    <link rel="stylesheet" href="../addons/ching_leeing/static/js/dist/mui/css/mui.min.css?t=1202">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/static/js/dist/mui/css/app.css" />
+    <link href="../addons/ching_leeing/static/js/dist/mui/css/mui.picker.css" rel="stylesheet" />
+    <link href="../addons/ching_leeing/static/js/dist/mui/css/mui.poppicker.css" rel="stylesheet" />
+
+    <script src="../addons/ching_leeing/static/js/dist/mui/js/mui.min.js?v=1"></script>
+    <script src="../addons/ching_leeing/static/js/dist/mui/js/mui.picker.js"></script>
+    <script src="../addons/ching_leeing/static/js/dist/mui/js/mui.poppicker.js"></script>
+</head>
+<body>
+<div class="container" id="container" style="background-color: #fbf9fe;">
+    <div class="cell" style="padding-bottom: 49px;overflow:auto;" id="scrolldIV">
+        {php $banner = m('common')->getBanner('pub');}
+        {if !empty($banner)}
+        <div id="head_bd" style="overflow:hidden;height:100px;">
+        
+            <div class="slide" id="banner_slide">
+                <ul>
+                    {loop $banner $p}
+                    <li>
+                        <a href="{$p['link']}">
+                            <img src="{php echo tomedia($p['thumb'])}" alt="">
+                        </a>
+                    </li>
+                    {/loop}
+                </ul>
+                <div class="dot">
+                    {loop $banner $p}
+                    <span></span>
+                    {/loop}
+                </div>
+            </div>
+        </div>
+        {/if}
+        <div class="mui-card">
+            <ul class="mui-table-view">
+                <!-- 联系人信息  -->
+                <div style="width:100%;height:5px;line-height: 0;">
+                    <img src="../addons/ching_leeing/template/mobile/default/static/images/hd.png?v=1" width="100%" height="100%" />
+                </div>
+                <div class="weui_1 weui_cells weui_cells_form" style="margin-top:0px">
+                    <!-- hidden="hidden" -->
+                    <div class="weui_cell icono_cell_title">
+                        <span class="mui-icon mui-icon-person-filled"></span>
+                        <div class="weui_cell_bd weui_cell_primary position_ title_font_set">
+                            <div>我的信息</div>
+                        </div>
+                        <a class="weui_cells_access" href="javascript:;" id="jiantou_hide" style="padding-left:25px;height:44px;line-height:44px;"> <span id="btn_use_new_address">展开</span> <span class="weui_cell_ft">
+					</span>
+                        </a>
+                    </div>
+                    <!--          有默认信息的下单页面  -->
+                    <div class="weui_cell" id="address_list" style="padding:3px 15px;">
+                        <div id="text_username_and_phone" class="weui_media_title" style="margin-bottom:0px;font-size:17px;font-weight:500;">
+                            <span id="text_username_and_phone_username" style="margin-right:20px"></span> <span id="text_username_and_phone_pho"></span>
+                        </div>
+                        <div id="text_user_address" style="margin-top:0px;font-size: 15px;color:#888;" class="weui_media_desc"></div>
+                    </div>
+
+                    <!--新建-->
+                    <div class="mui-collapse-content">
+                        <form class="mui-input-group">
+                            <div class="mui-input-row new_address_form_cell">
+                                <label>姓 名:</label>
+                                <textarea rows="1" onkeydown="checkEnter(event)" id="edit_username" style="text-align:left" class="weui_textarea replace_color" placeholder="请填入联系人姓名"></textarea><span class="mui-icon mui-icon-clear mui-hidden"></span>
+                            </div>
+                            <div class="mui-input-row new_address_form_cell">
+                                <label>手 机:</label>
+                                <textarea rows="1" onkeydown="checkEnter(event)" id="edit_phone" style="text-align:left" class="weui_textarea replace_color" placeholder="请输入手机号码"></textarea><span class="mui-icon mui-icon-clear mui-hidden"></span>
+                            </div>
+                            <div class="mui-input-row new_address_form_cell">
+                                <label>学 校:</label>
+                                <input id="select_address_school_action" value="请选择学校" data-id="0" readonly type="text" class="mui-input-clear" placeholder="点击选择学校" data-input-clear="5">
+                            </div>
+                            <div class="mui-input-row new_address_form_cell">
+                                <label>地 址:</label>
+                                <textarea rows="1" onkeydown="checkEnter(event)" id="edit_address" style="text-align:left" class="weui_textarea replace_color" placeholder="如:H13栋1201"></textarea><span class="mui-icon mui-icon-clear mui-hidden"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </div>
+
+        <div class="mui-card">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#">服务需求</a>
+                    <div class="mui-collapse-content">
+                        <form class="mui-input-group">
+                            <div class="mui-input-row">
+                                <label>服务类型:</label>
+                                <input id="service_type_select_click" readonly  type="text" placeholder="请选择服务类型">
+                            </div>
+                            <div class="mui-input-row" style="margin: 10px 5px;height: 100%;">
+                                <textarea id="service_detail" rows="5" placeholder="多行文本框"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <script>
+        (function($, doc) {
+            $.init();
+            $.ready(function() {
+                //普通示例
+                var address_school_Picker = new $.PopPicker();
+                address_school_Picker.setData({php echo json_encode($colleage_info,true)});
+                var showUserPickerButton = doc.getElementById('select_address_school_action');
+                showUserPickerButton.addEventListener('tap', function(event) {
+                    address_school_Picker.show(function(items) {
+                        showUserPickerButton.setAttribute("value",items[0].text);
+                        showUserPickerButton.setAttribute("data-id",items[0].value);
+                    });
+                }, false);
+
+                var school_select_click1_Picker = new $.PopPicker();
+                school_select_click1_Picker.setData({php echo json_encode($colleage_info,true)});
+                var school_select_click1Button = doc.getElementById('school_select_click1');
+                school_select_click1Button.addEventListener('tap', function(event) {
+                    school_select_click1_Picker.show(function(items) {
+                        school_select_click1Button.setAttribute("value",items[0].text);
+                        school_select_click1Button.setAttribute("data-id",items[0].value);
+                    });
+                }, false);
+
+                var order_expire_Picker = new $.PopPicker();
+                order_expire_Picker.setData([{
+                    value: '10',
+                    text: '10分钟'
+                }, {
+                    value: '30',
+                    text: '30分钟'
+                }, {
+                    value: '60',
+                    text: '1小时'
+                }, {
+                    value: '180',
+                    text: '3小时'
+                }, {
+                    value: '300',
+                    text: '5小时'
+                }, {
+                    value: '-1',
+                    text: '明天中午前'
+                }, {
+                    value: '-2',
+                    text: '明天晚上前'
+                }]);
+
+                var order_expireButton = doc.getElementById('order_expire');
+                order_expireButton.addEventListener('tap', function(event) {
+                    order_expire_Picker.show(function(items) {
+                        order_expireButton.setAttribute("value",items[0].text);
+                        order_expireButton.setAttribute("data-id",items[0].value);
+                    });
+                }, false);
+
+
+
+                //----------------------------------------------------------------------------------
+                var servicePicker = new $.PopPicker();
+                servicePicker.setData({php echo json_encode($service_info,true)});
+                var service_type_PickerButton = doc.getElementById('service_type_select_click');
+                service_type_PickerButton.addEventListener('tap', function(event) {
+                    servicePicker.show(function(items) {
+                        service_type_PickerButton.setAttribute("value",items[0].text);
+                        service_type_PickerButton.setAttribute("data-id",items[0].value);
+                        serviceTypeOnChange(items[0].value);
+                    });
+                }, false);
+
+
+                //----------------------------------------------------------------------------------
+                var express_companyPicker = new $.PopPicker();
+                express_companyPicker.setData([{
+                    value: '顺丰',
+                    text: '顺丰'
+                }, {
+                    value: '申通',
+                    text: '申通'
+                }, {
+                    value: '圆通',
+                    text: '圆通'
+                }, {
+                    value: '中通',
+                    text: '中通'
+                }, {
+                    value: '韵达',
+                    text: '韵达'
+                }, {
+                    value: '百世汇通',
+                    text: '百世汇通'
+                }, {
+                    value: '天天',
+                    text: '天天'
+                }, {
+                    value: '其他',
+                    text: '其他'
+                }]);
+                var express_companyPicker_PickerButton = doc.getElementById('express_company_selects');
+                express_companyPicker_PickerButton.addEventListener('tap', function(event) {
+                    express_companyPicker.show(function(items) {
+                        express_companyPicker_PickerButton.setAttribute("value",items[0].text);
+                    });
+                }, false);
+
+                //----------------------------------------------------------------------------------
+                var express_size_PickerButtonPicker = new $.PopPicker();
+                {php $diy = m('service')->getDiyData(1);}
+                express_size_PickerButtonPicker.setData([{
+                    value: {php echo $diy['a']},
+                    text: '1公斤以下'
+                }, {
+                    value: {php echo $diy['b']},
+                    text: '1～2公斤'
+                }, {
+                    value: {php echo $diy['c']},
+                    text: '2～5公斤'
+                }, {
+                    value: {php echo $diy['d']},
+                    text: '5公斤以上'
+                }]);
+                var express_size_PickerButton = doc.getElementById('express_size');
+                express_size_PickerButton.addEventListener('tap', function(event) {
+                    express_size_PickerButtonPicker.show(function(items) {
+                        express_size_PickerButton.setAttribute("value",items[0].text);
+                        var this_extra_weight_payment = parseFloat(items[0].value)-parseFloat(extra_weight_payment);
+                        increase_payment(this_extra_weight_payment);
+                        extra_weight_payment = items[0].value;
+                    });
+                }, false);
+            });
+        })(mui, document);
+    </script>
+        <div class="mui-card" id="individuation">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#">个性化设置</a>
+                    <div class="mui-collapse-content">
+                        <form class="mui-input-group">
+                            <div class="mui-input-row">
+                                <label>快递公司:</label>
+                                <input id="express_company_selects" value="其他" readonly type="text" placeholder="点击选择">
+                            </div>
+                            <div class="mui-input-row">
+                                <label>物品重量:</label>
+                                <input type="text" id="express_size" readonly class="mui-input-clear" placeholder="点击选择" data-input-clear="3"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+                            </div>
+                            <div class="mui-input-row mui-checkbox">
+                                <label>送货上楼</label>
+                                <input id="Delivery_upstairs" onchange="javascript:update_upstairs_payment();" type="checkbox">
+                            </div>
+                            <div class="mui-input-row mui-checkbox">
+                                <label>暂时保管</label>
+                                <input id="Temporary_custody" onchange="javascript:update_baoguan_payment();" type="checkbox">
+                            </div>
+                        </form>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="mui-card">
+            <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-collapse mui-active">
+                <a class="mui-navigate-right" href="#">其他信息</a>
+                <div class="mui-collapse-content">
+                    <form class="mui-input-group">
+                        <div class="mui-input-row">
+                            <label>完成时间:</label>
+                            <input type="text" id="finishTime" onclick="set_finish_time_dialog()" readonly placeholder="普通输入框">
+                        </div>
+                        <div class="mui-input-row">
+                            <label>服务小费:</label>
+                            <input type="text" readonly id="payment_input" onclick="update_payment();" class="mui-input-clear" placeholder="小费越高接单率越高" data-input-clear="3"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+                        </div>
+
+                        <div class="mui-input-row">
+                            <label>指定学校:</label>
+                            <input type="text" readonly value="{$colleage}" data-id="{$colleageid}" id="school_select_click1" class="mui-input-speech mui-input-clear" placeholder="点击选择" data-input-clear="4" data-input-speech="4">
+                        </div>
+
+                        <div class="mui-input-row mui-checkbox">
+                            <label>性别要求：</label>
+                            <input id="girl_checkbox" checked type="checkbox" style="right: 117px;">
+                            <span style="position: absolute;top: 8px;right: 88px;display: inline-block;width: 28px;height: 26px;border: 0;outline: 0!important;background-color: transparent;-webkit-appearance: none;">女生</span>
+                            <input id="boy_checkbox" checked type="checkbox" style="right: 48px;">
+                            <span style="position: absolute;top: 8px;right: 18px;display: inline-block;width: 28px;height: 26px;border: 0;outline: 0!important;background-color: transparent;-webkit-appearance: none;">男生</span>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>订单有效期:</label>
+                            <input type="text" readonly id="order_expire" value="明天中午前" data-id="-1" class="mui-input-speech mui-input-clear" placeholder="点击选择" data-input-clear="4" data-input-speech="4">
+                        </div>
+                        <!--<div class="mui-input-row mui-checkbox" style="display: none">-->
+                            <!--<label>隐私保护：</label>-->
+                            <!--<input id="privacy" type="checkbox">-->
+                        <!--</div>-->
+                    </form>
+                </div>
+            </li>
+
+        </ul>
+        </div>
+        <div class="mui-input-row mui-checkbox mui-left" style="height: 44px;">
+            <label><input name="checkbox" checked="checked" id="rights" value="Item 1" type="checkbox"></label>
+            <a href="{$treaty['url']}" style="color:#03A9F4;position: absolute;bottom: 13px;left: 60px;" class="weui_msg_desc">我同意{$treaty['title']}</a>
+        </div>
+</div>
+</div>
+<div id="bottom_tabbar" class="weui_tabbar" style="z-index:5;height:50px">
+
+    <div class="box-flex-c">
+        <div style="font-size: 16px;display: block;margin-right:10px;text-align: right;margin-top:4px;height:18px">待支付: <a id="text_true_fee" style="font-size: 18px;color:#f23030;font-weight: bold;margin-right:2px;">1</a>元</div>
+        <div id="text_total_fee" style="display: block;font-size: 14px;margin-right:10px;text-align: right;height:16px;margin-top:3px;color:#888;"></div>
+    </div>
+    <a style="font-size: 18px; background-color:#4cd964;;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">召唤奥特曼</a>
+</div>
+<!--BEGIN toast-->
+<div id="toast" style="display: none;">
+    <div class="weui_mask_transparent" style="z-index:9"></div>
+    <div class="weui_toast">
+        <i class="weui_icon_toast"></i>
+        <p class="weui_toast_content">已完成</p>
+    </div>
+</div>
+<!--end toast-->
+<!-- loading toast -->
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+    <div class="weui_mask_transparent" style="z-index:9"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p id="weui_loading_tips" class="weui_toast_content">提交订单中</p>
+    </div>
+</div>
+<!--BEGIN dialog_service_time-->
+<div class="weui_dialog_confirm" id="time_dialog_tips" style="z-index:10;display: none;">
+    <div class="weui_mask" style="z-index:9"></div>
+    <div class="weui_dialog" style="z-index:11;background-color: #fff;">
+        <div class="weui_dialog_hd">
+            <strong class="weui_dialog_title">要求服务完成的时间</strong>
+        </div>
+        <div class="weui_dialog_bd" style="padding:0">
+            <div class="weui_cell_bd weui_cell_primary">
+                <div style="width:244px;height:100px;margin:5px auto;">
+                    <span class="weui_btn weui_btn_mini weui_btn_default" id="today_time_click" style="width:118px;height:90px;font-size:20px;font-weight:bold;float:left;padding-top:27px;
+						line-height:20px;margin-right: 8px;">今天
+                        <br/><span id="today_time_show" style="font-size:13px;font-weight:500">1月8日 周五 </span></span>
+                    <div style="position:absolute;">
+                        <input id="today_time" type="text" value="" style="width:118px;height:90px;opacity:0;bottom:55px;"/>
+                    </div>
+                    <span class="weui_btn weui_btn_mini weui_btn_default" id="tomorrow_time_click" style="width:118px;height:90px;font-size:20px;font-weight:bold;padding-top:27px;float:right;
+						line-height:20px;">明天
+							<br/> <span id="tomorrow_time_show" style="font-size:13px;font-weight:500">1月9日 周五 </span>
+						</span>
+                    <div style="position:absolute;margin-left:126px;">
+                        <input id="tomorrow_time" type="text" value="" style="width:118px;height:90px;opacity:0;bottom:55px;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui_dialog_ft" style="margin-top:10px;">
+            <a href="javascript:$('#time_dialog_tips').hide();" style="width:50%" class="weui_btn_dialog default">返回</a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../addons/ching_leeing/template/mobile/default/static/js/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
+<script src="../addons/ching_leeing/template/mobile/default/static/js/swipeSlide.min.js"></script>
+<script>
+    //信息初始化
+    function UserContactInfo(id, isnew, username, phone, schoolId, school, address, serviceTypeId) {
+        this.id = id;
+        this.isnew = isnew;
+        this.username = username;
+        this.phone = phone;
+        this.schoolId = schoolId;
+        this.school = school;
+        this.address = address;
+        this.serviceTypeId = serviceTypeId;
+    }
+    function ServieTypeInfo(id, serviceName, exampleAbstract, discount, feeMin ,feeMax, lowPrice, highPrice, expireTime, exampleRemark, needAddress, showSchoolSelect,system) {
+        this.id = id;
+        this.serviceName = serviceName;
+        this.exampleAbstract = exampleAbstract;
+        this.discount = discount;
+        this.feeMin = feeMin;
+        this.feeMax = feeMax;
+        this.lowPrice = lowPrice;
+        this.highPrice = highPrice;
+        this.expireTime = expireTime;
+        this.exampleRemark = exampleRemark;
+        this.needAddress = needAddress;
+        this.showSchoolSelect = showSchoolSelect;
+        this.system = system;
+    }
+    function checkEnter(e) {
+        var et = e || window.event;
+        var keycode = et.charCode || et.keyCode;
+        if (keycode == 13) {
+            if (window.event)
+                window.event.returnValue = false;
+            else
+                e.preventDefault();//for firefox
+        }
+    }
+    var userContactInfo = new UserContactInfo('{$uid}', '{$isnew}', '{$postname}', '{$mobile}', '{$colleageid}', '{$colleage}', '{$address}', '{$servicetype}');
+    var servieTypeInfoList = new Array({php echo count($service_info)+1});
+    servieTypeInfoList[0] = new ServieTypeInfo(-1, '请选择服务类型', '请先选择服务类型', 0, 0,0, 0, 0, 180, '请先选择服务类型', 1, 0,0);
+    {loop $service_info $i $slist}
+    servieTypeInfoList[{$slist['id']}] = new ServieTypeInfo({$slist['id']}, '{$slist['title']}', '{$slist['require']}', {$slist['discount']}, {$slist['feemin']},{$slist['feemax']}, {$slist['feelow']}, {$slist['feehigh']}, {$slist['canceltime']}, '{$slist['remark']}', {$slist['allowhideaddress']}, {$slist['keepcolleage']},{$slist['system']});
+    {/loop}
+
+
+    var address_mod_flag = 0;
+    var servie_type_index = 0;
+    var total_payment = -1;
+    var total_shanglou_payment = 0;
+    var total_baoguan_payment = 0;
+    var require_service_time = 0; //0:第一次要设置  1:接单后立即执行 >1:具体时间
+    var min_pay_amount = 1;
+    var extra_weight_payment = 0;
+
+
+
+    function showFeeReslut() {
+        if (total_payment == -1) {
+            //更新支付button
+            $("#text_total_fee").text("总额: 0 元");
+            $("#payment_input").removeAttr('value');
+            $("#payment_input").attr('placeholder','小费越高接单率越高');
+            $("#text_true_fee").text("0");
+        } else {
+            var text_total_fee = "总额: " + total_payment + " 元";
+            $("#text_service_fee").text(total_payment + " 元");
+            var total_true_fee = 1.0;
+            if (servieTypeInfoList[servie_type_index].discount > 0) {
+                if (total_payment > servieTypeInfoList[servie_type_index].discount + 1) {
+                    text_total_fee = text_total_fee + ",立减 " + servieTypeInfoList[servie_type_index].discount + " 元";
+                    total_true_fee = (total_payment - servieTypeInfoList[servie_type_index].discount).toFixed(2);
+                }
+                else {
+                    text_total_fee = text_total_fee + ",立减 " + (total_payment - 1).toFixed(2) + " 元";
+                }
+            } else {
+                total_true_fee = total_payment;
+            }
+            $("#text_total_fee").text(text_total_fee + "(不包含成本费用)");
+            $("#text_true_fee").text(total_true_fee);
+        }
+    }
+    //服务小费设置
+
+    function update_payment() {
+        //feeMin 最小值
+        min_pay_amount = servieTypeInfoList[servie_type_index].feeMin;
+        var recommend_price = parseFloat(4);//推荐费用
+        if (servie_type_index == 0) {
+            muiDialog("注意", "请先选择服务类型!");
+            return;
+        } else if (servieTypeInfoList[servie_type_index].system == 1) {
+            //处理代拿费用
+            var express_size = parseFloat($("#express_size").attr('data-id'));
+            isNaN(express_size) ? express_size = 0 : express_size = express_size;
+            recommend_price = parseFloat(recommend_price) + parseFloat(express_size) + 1;
+            min_pay_amount = min_pay_amount + parseFloat(express_size);
+            if ($('#Delivery_upstairs').is(':checked')) {
+                recommend_price = parseFloat(recommend_price) + parseFloat({php echo $diy['e']});
+                min_pay_amount = min_pay_amount + {php echo $diy['e']};
+            }
+            if ($('#Temporary_custody').is(':checked')) {
+                recommend_price = recommend_price + parseFloat({php echo $diy['f']});
+                min_pay_amount = min_pay_amount + {php echo $diy['f']};
+            }
+        }
+        recommend_price = recommend_price + extra_weight_payment;
+        min_pay_amount = min_pay_amount + extra_weight_payment;
+        var btnArray = ['取消', '确定'];
+        mui.prompt('您支付成功后可以追加付款', '推荐'+recommend_price+'元，最低'+min_pay_amount+'元', '服务费设置', btnArray, function(e) {
+            if (e.index == 1) {
+                save_payment(e.value);
+            }else{
+                return;
+            }
+        })
+    }
+    function update_payment_onsubmit() {
+        //feeMin 最小值
+        min_pay_amount = servieTypeInfoList[servie_type_index].feeMin;
+        var recommend_price = parseFloat(4);//推荐费用
+        if (servie_type_index == 0) {
+            muiDialog("注意", "请先选择服务类型!");
+            return;
+        } else if (servieTypeInfoList[servie_type_index].system == 1) {
+            //处理代拿费用
+            var express_size = parseFloat($("#express_size").attr('data-id'));
+            isNaN(express_size) ? express_size = 0 : express_size = express_size;
+            recommend_price = parseFloat(recommend_price) + parseFloat(express_size) + 1;
+            min_pay_amount = min_pay_amount + parseFloat(express_size);
+            if ($('#Delivery_upstairs').is(':checked')) {
+                recommend_price = parseFloat(recommend_price) + parseFloat({php echo $diy['e']});
+                min_pay_amount = min_pay_amount + {php echo $diy['e']};
+            }
+            if ($('#Temporary_custody').is(':checked')) {
+                recommend_price = recommend_price + parseFloat({php echo $diy['f']});
+                min_pay_amount = min_pay_amount + {php echo $diy['f']};
+            }
+        }
+        recommend_price = recommend_price + extra_weight_payment;
+        min_pay_amount = min_pay_amount + extra_weight_payment;
+    }
+    //保存小费设置
+    function save_payment(tips) {
+        var isNum = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+        if (isNum.test(tips) && tips < 1000 && tips >= min_pay_amount) {
+            total_payment = tips;
+            $("#payment_input").attr('value', total_payment + "元");
+            showFeeReslut();
+        } else {
+            if (servieTypeInfoList[servie_type_index].system == 1) {
+                mui.alert('请填写有效的金额数目!\nPS：要求【送上楼】等会提高最低支付小费哦', '提示', function () {
+                    return true;
+                });
+            } else {
+                mui.alert('请填写有效的金额数目', '提示', function () {
+                    return true;
+                });
+            }
+        }
+    }
+    //增加小费设置
+    function increase_payment(tips) {
+        total_payment = parseFloat(total_payment)+parseFloat(tips);
+        if(total_payment <= 0){
+            total_payment = 0;
+        }
+        $("#payment_input").attr('value', total_payment + "元");
+        showFeeReslut();
+    }
+    function update_upstairs_payment() {
+        if ($('#Delivery_upstairs').is(':checked')) {
+            var this_shanglou_payment = parseFloat({php echo $diy['e']})-parseFloat(total_shanglou_payment);
+            increase_payment(this_shanglou_payment);
+            total_shanglou_payment = parseFloat({php echo $diy['e']});
+        }else{
+            var this_shanglou_payment = 0-parseFloat(total_shanglou_payment);
+            increase_payment(this_shanglou_payment);
+            total_shanglou_payment = 0;
+        }
+    }
+    function update_baoguan_payment() {
+        if ($('#Temporary_custody').is(':checked')) {
+            var this_baoguan_payment = parseFloat({php echo $diy['f']})-parseFloat(total_baoguan_payment);
+            increase_payment(this_baoguan_payment);
+            total_baoguan_payment = parseFloat({php echo $diy['f']});
+        }else{
+            var this_baoguan_payment = 0-parseFloat(total_baoguan_payment);
+            increase_payment(this_baoguan_payment);
+            total_baoguan_payment = 0;
+        }
+    }
+    //服务类型切换
+    function serviceTypeOnChange(index) {
+        if (index != 0 && !check_user_info()) {
+            $("#service_type_select option[value='0']").prop("selected", "selected");
+            return false;
+        }
+        servie_type_index = index;
+        $("#service_detail").attr("placeholder",servieTypeInfoList[servie_type_index].exampleAbstract);
+        //特别注意：需要在调用服务类型改变时调用在函数后再改失效时间，失效时间跟着服务类型而改变
+
+        if (servieTypeInfoList[servie_type_index].needAddress == 0) {
+            if ($('#show_hide_service_requirement').prop("checked"))
+                $("#div_privacy_set").show();
+        } else {
+            $("#div_privacy_set").hide();
+            $("#privacy").prop("checked", false);
+        }
+        if (servieTypeInfoList[servie_type_index].showSchoolSelect == 1) {
+            $("#school_select_cell").show();
+        } else {
+            $("#school_select_cell").hide();
+        }
+        $("#service_type_select_click").text(servieTypeInfoList[servie_type_index].serviceName);
+        if (index == 0) {
+            $("#service_type_select_click").css("color", "#acacac");
+            $("#kuaidi_content1").hide();
+            $('.default_option').each(function (index) {
+                $(this).hide();
+            });
+        } else {
+            $("#service_type_select_click").css("color", "black");
+            $('.default_option').each(function (index) {
+                $(this).show();
+            });
+            if (address_mod_flag == 1) document.getElementById('jiantou_hide').click();
+            //首次使用的用户立即记录地址
+            if (userContactInfo.isnew == '1' && userContactInfo.phone == '') {
+                var cur_select_school = $("#select_address_school_action");
+                var p = $.param({
+                    username: $("#edit_username").val(),
+                    phone: $("#edit_phone").val(),
+                    school: cur_select_school.val(),
+                    schoolId: cur_select_school.attr('data-id'),
+                    address: $("#edit_address").val(),
+                    serviceId: servieTypeInfoList[servie_type_index].id
+                });
+                $.getJSON('{php echo mobileLink('index/saveAddress')}&' + p, function (res) {
+                    if (res.code == 0) {
+                        userContactInfo.isnew = '2';
+                        userContactInfo.phone = $("#edit_phone").val();
+                    }
+                });
+            }
+        }
+        if (servieTypeInfoList[servie_type_index].system == 1) {  //快递类型改变服务内容的改变
+            $("#text_service_detail").attr("placeholder", "其他服务要求,选填\n(" + servieTypeInfoList[servie_type_index].exampleRemark + ")");
+            $("#express_company_click").text($("#express_company_select option:selected").text());
+            $("#express_size_click").text($("#express_size option:selected").text());
+            $("#kuaidi_content1").hide();
+            $("#individuation").show();
+        } else {
+            $("#text_service_detail").attr("placeholder", "备注，选填\n(" + servieTypeInfoList[servie_type_index].exampleRemark + ")");
+            $("#individuation").hide();
+            if (index != 0)
+                $("#kuaidi_content1").show();
+        }
+        showFeeReslut();
+    }
+    var cur_timestamp = {php echo time()} * 1000;
+    var weekday_name = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
+    var today_time = new Date(cur_timestamp);
+    var tomorrow_time = new Date(cur_timestamp);
+    var finish_time = new Date(cur_timestamp + 120 * 60 * 1000);
+    $(function () {
+        $('#banner_slide').swipeSlide({
+            lazyLoad: true,
+            autoSwipe: true,
+            continuousScroll: true,
+            speed: 2500,
+            transitionType: 'cubic-bezier(0.22, 0.69, 0.72, 0.88)',
+            firstCallback: function (i, sum, me) {
+                me.find('.dot').children().first().addClass('cur');
+            },
+            callback: function (i, sum, me) {
+                me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        });
+        $('#text_area').hide();
+
+        //个人信息初始化操作
+        if (userContactInfo.isnew == '0') {
+
+            //信息栏初始化
+            $("#address_list").removeAttr("hidden");//显示
+            $("#text_username_and_phone_username").text(userContactInfo.username);
+            $("#text_username_and_phone_pho").text(userContactInfo.phone);
+            $("#text_user_address").text(userContactInfo.school + " " + userContactInfo.address);
+
+            //个性化设置初始化
+            $("#school_select").attr('value',userContactInfo.school);
+            $("#school_select").attr('data-id',userContactInfo.school);
+
+            //详细信息栏初始化
+            $("#edit_username").val(userContactInfo.username);
+            $("#edit_phone").val(userContactInfo.phone);
+            $("#select_address_school_action").attr('value',userContactInfo.school);
+            $("#select_address_school_action").attr('data-id',userContactInfo.schoolId);
+            $("#edit_address").val(userContactInfo.address);
+        } else {
+            userContactInfo.isnew = '1';
+            require_service_time = 0;
+            $(".new_address_form_cell").hide();
+        }
+
+        var after_ten_min_time = new Date(cur_timestamp + 9 * 60 * 1000);
+        var after_two_hour_time = new Date(cur_timestamp + 120 * 60 * 1000);
+        tomorrow_time.setDate(tomorrow_time.getDate() + 1);
+        //完成时间
+        if (require_service_time < 2) {
+            set_finish_time(new Date(require_service_time));
+        } else {
+            set_finish_time(after_two_hour_time);
+        }
+        $("#today_time_show").text((today_time.getMonth() + 1) + "月" + today_time.getDate() + "日 " + weekday_name[today_time.getDay()]);
+        $("#tomorrow_time_show").text((tomorrow_time.getMonth() + 1) + "月" + tomorrow_time.getDate() + "日 " + weekday_name[tomorrow_time.getDay()]);
+        var tomorrow_end_time = new Date(tomorrow_time);
+        tomorrow_end_time.setHours(23, 59, 59, 999);
+        var opt1 = {};
+        opt1.time = {
+            preset: 'time',
+            width: 120,
+            minDate: after_ten_min_time,
+            maxDate: tomorrow_end_time,
+            stepMinute: 5
+        };
+        $('#today_time').val('').scroller('destroy').scroller($.extend(opt1['time'], {
+            theme: 'android-ics light',
+            mode: 'scroller',
+            display: 'modal',
+            lang: 'zh'
+        }));
+        var opt2 = {};
+        var tomorrow_start_time = new Date(tomorrow_time);
+        tomorrow_start_time.setHours(0, 0, 0, 0);
+        if (tomorrow_start_time.getTime() < after_ten_min_time.getTime()) {
+            tomorrow_start_time = after_ten_min_time;
+            //今天的按钮不可用
+            $("#today_time_click").addClass("weui_btn_disabled");
+            $("#today_time").attr("hidden", "hidden");
+        }
+        opt2.time = {
+            preset: 'time',
+            width: 120,
+            minDate: tomorrow_start_time,
+            maxDate: tomorrow_end_time,
+            stepMinute: 5
+        };
+        $('#tomorrow_time').val('').scroller('destroy').scroller($.extend(opt2['time'], {
+            theme: 'android-ics light',
+            mode: 'scroller',
+            display: 'modal',
+            lang: 'zh'
+        }));
+        $("#service_type_select").empty();
+
+
+        //剔除循环
+        for (x in servieTypeInfoList) {
+            if (servieTypeInfoList[x].id == userContactInfo.serviceTypeId) {
+                servie_type_index = x;
+                if(userContactInfo.serviceTypeId == 1) {$("#individuation").show();}
+                //jQuery方法阻塞
+                var servieTypeInfo = document.getElementById('service_type_select_click');
+                servieTypeInfo.setAttribute("value",servieTypeInfoList[x].serviceName);
+                servieTypeInfo.setAttribute("data-id",servieTypeInfoList[x].id);
+            }
+        }
+        //纪录保留对本次上次下单的类型，下次登录时显示上次的纪录
+        var checkext = $("#service_type_select").find("option:selected").text();
+        $("#service_type_select_click").text(checkext);
+        //学校模拟下拉列表名称初始化
+        $("#school_select_click").text($("#school_select").find("option:selected").text());
+        var schooledit = $("#select_address_school").find("option:selected").text();/////////////////////
+        $("#select_address_school_click").text(schooledit);
+        serviceTypeOnChange(servie_type_index);
+        $("#express_service_detail").attr("placeholder", "请把快递领取信息完整复制到此处,\n如需留言，请在'更多选项'中填写.");
+        //自动判断字数
+        $('#text_service_detail').on('input propertychange', function (e, previous) {
+            var str = $(this).val();
+            $("#text_service_detail_count").text(str.length);
+        });
+        //自动判断快递公司
+        $('#express_service_detail').on('input propertychange', function (e, previous) {
+            var str = $(this).val();
+            $('#express_company_select option').each(function (index) {
+                if (str.indexOf(this.value) >= 0) {
+                    $("#express_company_select option[value='" + this.value + "']").prop("selected", "selected");
+                    $("#express_company_click").text(this.text);
+                    return false;
+                }
+            });
+        });
+        //服务类型select 改变/
+        $('#service_type_select').change(function () {
+            alert('serviceTypeOnChange');
+            serviceTypeOnChange($(this).val());
+        });
+        //隐藏地址的checkbox值改变
+        $('#privacy').on('click', function (e) {
+            if ($(this).prop("checked")) {
+                muiDialog("注意", "对于一些线下服务,隐藏部分信息可能会导致您的订单无法完成!");
+            }
+        });
+        $("#today_time").on('change', function (e) {
+            $("#time_dialog_tips").hide();
+            var a = $("#today_time").val();
+            var a1 = a.split(":");        //分开小时和分钟
+            var set_time = new Date(today_time);
+            set_time.setHours(a1[0], a1[1], 0, 0);
+            set_finish_time(set_time);
+        });
+        $("#tomorrow_time").on('change', function (e) {
+            $("#time_dialog_tips").hide();
+            var a = $("#tomorrow_time").val();
+            var a1 = a.split(":");
+            var set_time = new Date(tomorrow_time);
+            set_time.setHours(a1[0], a1[1], 0, 0);
+            set_finish_time(set_time);
+        });
+        //服务要求的隐藏与显示
+        $('#show_hide_service_requirement').click(function () {
+            if ($(this).prop("checked")) {
+                //$('#text_area').show();
+                $('.more_option').each(function (index) {
+                    $(this).show();
+                });
+                if (servieTypeInfoList[servie_type_index].needAddress == 0)
+                    $("#div_privacy_set").show();
+                document.getElementById('s11').scrollIntoView();
+                $('.weui_cell_bd weui_cell_primary position_ title_font_set').val("kai");
+            } else {
+                //$('#text_area').hide();
+                $('.weui_cell_bd weui_cell_primary position_ title_font_set').text("关闭");
+                $('.more_option').each(function (index) {
+                    $(this).hide();
+                });
+                $("#div_privacy_set").hide();
+            }
+        });
+        //需要同意立应校园服务平台协议
+        $('#s11').click(function () {
+            if ($('#s11').attr("checked") == "checked") {
+                $('#s11').removeAttr("checked", "checked");
+            }
+            else {
+                $('#s11').attr("checked", "checked");
+            }
+        });
+        //简单的判断是否第一次下单
+        if (userContactInfo.isnew == '0') {
+            $('.new_address_form_cell').hide();
+            $('#address_list').show();
+            $('#btn_use_new_address').text("修改");
+        } else {
+            address_mod_flag = 1;
+            $('#address_list').hide();
+            $('.new_address_form_cell').show();
+            $('#btn_use_new_address').text("收起");
+            $("#service_type_select_click").css("color", "#acacac");
+            $("#select_address_school_click").css("color", "#acacac");
+        }
+        $('#jiantou_hide').click(function () {
+            if (address_mod_flag == 1) {
+                if (!check_user_info()) return;
+                $("#text_username_and_phone_username").text($("#edit_username").val());
+                $("#text_username_and_phone_pho").text($("#edit_phone").val());
+                var cur_select_school = $("#select_address_school_action");
+                $("#text_user_address").text(cur_select_school.val() + " " + $("#edit_address").val());
+                $('#address_list').show();
+                $('.new_address_form_cell').hide();
+                $('#btn_use_new_address').text("修改");
+                address_mod_flag = 0;
+            }
+            else if (address_mod_flag == 0) {
+                userContactInfo.isnew = '1';
+                $('#address_list').hide();
+                $('.new_address_form_cell').show();
+                $('#btn_use_new_address').text("收起");
+                address_mod_flag = 1;
+            }
+        });
+        $("#express_company_select").change(function () {
+            var checkText = $("#express_company_select").find("option:selected").text();
+            if (checkText == '其他') {
+                $('#dialog_set_express_company').show();
+                $('#edit_express_company').focus();
+            } else {
+                $("#express_company_click").text(checkText);
+            }
+        });
+        $("#express_size").change(function () {
+            var checkText = $("#express_size").find("option:selected").text();
+            $("#express_size_click").text(checkText);
+        });
+        $('#select_address_school').change(function () {
+            $("#select_address_school_click").text($("#select_address_school").find("option:selected").text());
+            if ($(this).val() == '0')
+                $("#select_address_school_click").css("color", "#acacac");
+            else {
+                $("#select_address_school_click").css("color", "black");
+                $("#school_select option[value='" + $(this).val() + "']").prop("selected", "selected");
+                $("#school_select_click").text($("#school_select").find("option:selected").text());
+            }
+        });
+        $('#school_select').change(function () {
+            $("#school_select_click").text($("#school_select").find("option:selected").text());
+        });
+        $('#checkbox_boy').click(function () {
+            if ($('#checkbox_boy').attr("checked") == "checked") {
+                $("#guy").css("color", "#acacac");
+                $('#checkbox_boy').removeAttr("checked", "checked");
+            }
+            else {
+                $("#guy").css("color", "black");
+                $('#checkbox_boy').attr("checked", "checked");
+            }
+        });
+        $('#checkbox_girl').click(function () {
+            if ($('#checkbox_girl').attr("checked") == "checked") {
+                $("#girl").css("color", "#acacac");
+                $('#checkbox_girl').removeAttr("checked", "checked");
+            }
+            else {
+                $("#girl").css("color", "black");
+                $('#checkbox_girl').attr("checked", "checked");
+            }
+        });
+        $('#order_submit').click(function () {
+            if (!$('#rights').is(':checked')) {
+                muiDialog("注意", "请先同意服务平台协议!");
+                return;
+            }
+            if (!check_user_info()) return;
+            if (servie_type_index == 0) {
+                muiDialog("注意", "请选择服务类型!");
+                return;
+            }
+            if($('#service_detail').val() == '') {muiDialog("注意", "请填入服务要求!");return;}
+            if (servie_type_index == 1) {
+                if($('#express_company_selects').val() == '') {muiDialog("注意", "请选择物流公司!");return;}
+                if($('#express_size').val() == '') {muiDialog("注意", "请选择物品重量!");return;}
+            }
+            if (finish_time.getTime() < 1) {
+                muiDialog("注意", "请设置完成时间!<br/>希望在什么时间之前要完成服务?");
+                return;
+            }
+            if (total_payment <= 0) {
+                muiDialog("注意", "请填入服务小费!");
+                return;
+            }
+            update_payment_onsubmit();
+            if (servieTypeInfoList[servie_type_index].system == 1) {
+                if(total_payment < min_pay_amount){
+                    if (servieTypeInfoList[servie_type_index].system == 1) {
+                        mui.alert('最低支付小费为大于您的实际值哦!', '提示', function () {
+                            return true;
+                        });
+                    }
+                    return;
+                }
+            }
+            if($('#school_select_click1').val() == '') {muiDialog("注意", "请指定服务学校!");return;}
+
+            //性别
+            var sexRequire = 0;
+            if (!$('#girl_checkbox').is(':checked') && !$('#boy_checkbox').is(':checked')) {
+                muiDialog("注意", "至少要指定一个性别!");
+                return;
+            } else {
+                if (!$("#girl_checkbox").prop("checked")) {
+                    sexRequire = 1;
+                }
+                if (!$("#boy_checkbox").prop("checked")) {
+                    sexRequire = 2;
+                }
+            }
+
+            var service_abstract = '';
+            var  service_detail = $("#service_detail").val();
+            var express_company_selects = $('#express_company_selects').val();
+
+            //取快递
+            if (servieTypeInfoList[servie_type_index].system == 1) {
+                service_abstract =service_abstract + express_company_selects+"/";
+                if ($('#Delivery_upstairs').is(':checked')) {service_abstract = service_abstract + "送上楼/";}
+                if ($('#Temporary_custody').is(':checked')) {service_abstract = service_abstract + "代保管/";}
+                service_abstract =service_abstract + $("#express_size").val();
+            }
+
+            if (userContactInfo.isnew != '0') {
+                userContactInfo.username = $("#edit_username").val();
+                userContactInfo.phone = $("#edit_phone").val();
+                var cur_select_school = $("#select_address_school_action");
+                userContactInfo.school = cur_select_school.val();
+                userContactInfo.schoolId = cur_select_school.attr('data-id');
+                userContactInfo.address = $("#edit_address").val();
+            }
+            var p = $.param({
+                serviceTypeId: servieTypeInfoList[servie_type_index].id,
+                serviceTypeName: servieTypeInfoList[servie_type_index].serviceName,
+                serviceAbstract: service_abstract,
+                serviceTime: finish_time.getTime(),
+                totalFee: total_payment,
+                expireTime: $("#order_expire").attr('data-id'),
+                serviceSchoolId: $('#school_select_click1').attr('data-id'),
+                serviceSchool: $('#school_select_click1').val(),
+                sexRequire: sexRequire,
+                serviceDetail: service_detail,
+                newAddress: userContactInfo.isnew,
+                userAddressId: userContactInfo.id,
+                username: userContactInfo.username,
+                phone: userContactInfo.phone,
+                schoolId: userContactInfo.schoolId,
+                school: userContactInfo.school,
+                address: userContactInfo.address,
+                allowSeeAddress: $('#privacy').is(':checked')? 0 : 1,
+                recServiceNotify: 1
+            });
+            weixinPrecreate(p);
+        });
+    });
+    function set_finish_time(datetime) {
+        var tmp = datetime.getTime();
+        if (tmp != 0 && (tmp < cur_timestamp + 2 * 60 * 1000)) {
+            tmp = 0;
+            finish_time = new Date(0);
+        } else finish_time = datetime;
+        if (tmp == 0) {
+            $("#finishTime").attr('placeholder',"请设置服务完成时间");
+        } else if (tmp == 1) {
+            $("#finishTime").val("接单后尽快完成");
+        } else {
+            var day_show_str = "今天";
+            if (finish_time.getDay() == tomorrow_time.getDay())
+                day_show_str = "明天";
+            var m = finish_time.getMinutes() + "";
+            if (finish_time.getMinutes() < 10) {
+                m = "0" + m;
+            }
+            var t = day_show_str + ' ' + finish_time.getHours() + ":" + m;
+            $("#finishTime").val(t + " 之前");
+        }
+    }
+    function isNumber(a) {
+        var reg = /^[0-9]{11}$/;
+        var reg1 = /^[0-9]{5,6}$/;
+        return (reg.test(a) || reg1.test(a));
+    }
+    function check_user_info() {
+        if ($("#edit_username").val() == "") {
+            muiDialog("注意", "请填入联系人姓名!");
+            return false;
+        }
+        if ($("#edit_phone").val() == "") {
+            muiDialog("注意", "请填入联系人手机!");
+            return false;
+        }
+        var num = $("#edit_phone").val();
+        if (isNumber(num) == false) {
+            muiDialog("注意", "请填入正确的手机号码!");
+            return false;
+        }
+        if ($("#select_address_school_click").text() == "请选择学校") {
+            muiDialog("注意", "请选择您所在的学校!");
+            return false;
+        }
+        if ($("#edit_address").val() == "") {
+            muiDialog("注意", "请填入联系人地址!");
+            return false;
+        }
+        return true;
+    }
+    function weixinPrecreate(param) {
+        $("#weui_loading_tips").text("提交订单中");
+        $('#loadingToast').show();
+        $.getJSON('{php echo mobileLink('index/create')}&' + param, function (res) {
+            $('#loadingToast').hide();
+            if (res.code == 0) {
+                window.location.href=res.url;
+            } else if (res.code == -1) {
+                muiDialog("注意", "提交的价格与实付款价格不一致,请重新进入此页面重试！");
+            } else if (res.code == -3) {
+                muiDialog("注意", "请在微信6.0以上版本打开此页面重试");
+            } else {
+                muiDialog("错误", "提交订单失败,请重新进入此页面重试！<br/>(输入框内请勿填入表情图标)");
+            }
+        });
+    }
+    //完成时间设置
+    function set_finish_time_dialog() {
+        $("#time_dialog_tips").show();
+    }
+    function muiDialog(a,b) {
+        mui.alert(b, a);
+    }
+</script>
+<script language='javascript'>
+    $(function () {
+        $.getJSON("{php echo mobileUrl('util/task')}");
+    })
+</script>
+</html>

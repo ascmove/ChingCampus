@@ -1,0 +1,91 @@
+{template '_header'}
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<style>
+    .tabs-container .tab-pane .panel-body {border-left: none; border-right: none; border-bottom: none;}
+</style>
+
+<form action="" method="post" class="form-horizontal form-validate" enctype="multipart/form-data" >
+    <div class="page-heading">
+        <span class="pull-right">
+            {ifp 'sysset.payset.edit'}
+                <input type="submit" value="提交" class="btn btn-primary"  />
+            {/if}
+        </span>
+        <h2>支付方式</h2>
+    </div>
+
+    {if $resp['code']!=200}
+    <div class="alert alert-danger">
+        <p style="font-size:18px;font-weight: bold;word-break: break-all">{$url} 访问受限, 请检查您的服务器设置</p>
+        <p style="font-size:18px;font-weight: bold;word-break: break-all">HTTP 错误代码: {$resp['code']}</p>
+    </div>
+    {/if}
+
+    <div class="tabs-container">
+        <div class="tab-content ">
+            <div class="tab-pane  active" id="tab_wechat">
+                <div class="panel panel-default">
+                    <div class="panel-body" id='certs'>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">CERT证书文件</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="hidden" name="data[weixin_cert]" value="{$data['weixin_cert']}"/>
+                            <input type="file" name="weixin_cert_file" class="form-control" />
+                            <span class="help-block">
+                                {if !empty($sec['cert'])}
+                                <span class='label label-success'>已上传</span>
+                                {else}
+                                <span class='label label-danger'>未上传</span>
+                                {/if}
+                                下载证书 cert.zip 中的 apiclient_cert.pem 文件
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">KEY密钥文件</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="hidden" name="data[weixin_key]"  value="{$data['weixin_key']}"/>
+                            <input type="file" name="weixin_key_file" class="form-control" />
+                            <span class="help-block">
+                               {if !empty($sec['key'])}
+                                <span class='label label-success'>已上传</span>
+                                {else}
+                                <span class='label label-danger'>未上传</span>
+                                {/if}
+                                下载证书 cert.zip 中的 apiclient_key.pem 文件
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">ROOT文件</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="hidden" name="data[weixin_root]" value="{$data['weixin_root']}"/>
+                            <input type="file" name="weixin_root_file" class="form-control" />
+                            <span class="help-block">
+                              {if !empty($sec['root'])}
+                                <span class='label label-success'>已上传</span>
+                                {else}
+                                <span class='label label-danger'>未上传</span>
+                                {/if}
+                                下载证书 cert.zip 中的 rootca.pem 文件
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+{template '_footer'}

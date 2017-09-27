@@ -1,0 +1,51 @@
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<form action="" method="post" class="form-horizontal form-validate" enctype="multipart/form-data">
+	<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">公告内容</h4>
+            </div>
+			{ifp 'shop.index.view'}
+            <div class="modal-body">
+
+			  <div class="form-group">
+				<label class="col-sm-2 control-label">发布者</label>
+				<div class="col-sm-9 col-xs-12">
+					<div class="form-control-static">{$item['author']}</div>
+				</div>
+			</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">标题</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="form-control-static">{$item['title']}</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">内容</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="form-control-static">{$item['content']}</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">发布时间</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="form-control-static">{php echo date('Y-m-d H:i:s',$item['createtime'])}</div>
+					</div>
+				</div>
+       
+  			</div>
+			{/if}
+		</div>  
+	</div>
+</form>

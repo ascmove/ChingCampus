@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <title>{if !empty($page_title)}{$page_title}{else}{$_W['appname']}{/if}</title>
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/static/js/dist/foxui/css/foxui.min.css?v=0.7">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/stylesheet.css?v=2.0.6">
+    <link rel="stylesheet" type="text/css" href="{php echo CHING_LEEING_LOCAL}static/fonts/iconfont.css?v=2016070717">
+    <script src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script src='//res.wx.qq.com/open/js/jweixin-1.1.0.js'></script>
+    <script src="{php echo CHING_LEEING_LOCAL}static/js/require.js"></script>
+    <script src="{php echo CHING_LEEING_LOCAL}static/js/myconfig-app.js?v={php echo time()}"></script>
+    <script language="javascript">require(['core'],function(modal){modal.init({siteUrl: "{$_W['siteroot']}",baseUrl: "{php echo mobileUrl('ROUTES')}"})});</script>
+</head>
+<body ontouchstart>
+<div class='fui-page-group {if is_ios()}statusbar{/if}'>

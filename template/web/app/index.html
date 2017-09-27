@@ -1,0 +1,217 @@
+{template '_header'}
+
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<div class="page-heading">
+    <h2>平台概述</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="contact-box">
+                <div class="col-sm-1" style="padding:0">
+                        <img src="{if empty($shop_data['logo'])}{CHING_LEEING_LOCAL}static/images/nopic100.jpg{else}{php echo tomedia($shop_data['logo'])}{/if}" style="width:65px;height:65px;border-radius:5px">
+                </div>
+            <div class="col-sm-10"  style="padding-left:10px">
+                    <h3>{if empty($shop_data['name'])}未设置平台名称{else}{$shop_data['name']}{/if}</h3>
+                    <p>{if empty($shop_data['name'])}未设置平台描述{else}{$shop_data['description']}{/if}</p>
+        </div>
+            	<div class="col-sm-1" style="padding-left: 0"><a class="btn btn-primary btn-sm" href="{php echo webUrl('sysset/platform')}" style="color: #fff"> 点击修改</a></div>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12">
+        <div class="contact-box" style="border: 1px solid #e7eaec">
+            <div class="forum-item">
+                <div class="row">
+                    <a href="{php echo webUrl('order/list/status3')}">
+                        <div class="col-sm-3 forum-info">
+                            <span class="views-number status3">--</span>
+                            <div>
+                                <small>待确认订单</small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="{php echo webUrl('order/list/status4')}">
+                        <div class="col-sm-3 forum-info">
+                            <span class="views-number status45">--</span>
+                            <div>
+                                <small>已完成订单</small>
+                            </div>
+                        </div>
+                        </a>
+
+                    <a href="{php echo webUrl('sr/sr_going')}">
+                        <div class="col-sm-3 forum-info">
+                            <span class="views-number status50X">--</span>
+                            <div>
+                                <small>维权中订单</small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="{php echo webUrl('finance/withdraw')}">
+                    <div class="col-sm-3 forum-info"><span class="views-number withdraw">--</span>
+                        <div>
+                            <small>待审核提现</small>
+                        </div>
+                    </div>
+                        </a>
+                </div>
+            </div>
+
+    </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins" style="border: 1px solid #e7eaec">
+            <div class="ibox-title">
+                <h5>交易走势图</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="echarts" id="echarts-line-chart" style="display: none"></div>
+
+                <div class="spiner-example" id="echarts-line-chart-loading">
+                    <div class="sk-spinner sk-spinner-wave">
+                        <div class="sk-rect1"></div>
+                        <div class="sk-rect2"></div>
+                        <div class="sk-rect3"></div>
+                        <div class="sk-rect4"></div>
+                        <div class="sk-rect5"></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<input type="hidden" name="len" value="0">
+<input type="hidden" name="index" value="0">
+<script>
+    function selectImage(obj){
+        util.image('',function(val){
+            $(obj).attr('src',val.url);
+
+            $.post("{php echo webUrl('app/index/ajaxshopconfig',array('type'=>'logo'))}", { value: val.attachment},
+                    function(data){
+                        if (data.status == 1)
+                        {
+                            tip.msgbox.suc('修改成功!' || tip.lang.success);
+                        }
+                        else
+                        {
+                            tip.msgbox.err('修改失败!' || tip.lang.error);
+                        }
+                    }, "json");
+        });
+    }
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $.ajax({
+            type: "GET",
+            url: "{php echo webUrl('order/list/ajaxgettotals')}",
+            dataType: "json",
+            success: function (data) {
+                var res = data.result;
+                var status45 = parseInt(res.status4)+parseInt(res.status5);
+                $("span.status3").text(res.status3);
+                $("span.status45").text(status45);
+                $("span.status50X").text(res.sr_going);
+                $("span.withdraw").text(res.withdraw);
+                $.ajax({
+                    type: "GET",
+                    async: false,
+                    url: "{php echo webUrl('order/ajaxtransaction')}",
+                    dataType: "json",
+                    success: function (json) {
+                        myrequire(['echarts'], function () {
+                            var lineChart = echarts.init(document.getElementById("echarts-line-chart"));
+                            var lineoption = {
+                                title: {
+                                    text: '最近7日交易走势'
+                                },
+                                tooltip: {
+                                    trigger: 'axis'
+                                },
+                                legend: {
+                                    data: ['成交额', '成交量']
+                                },
+                                grid: {
+                                    x: 50,
+                                    x2: 50,
+                                    y2: 30
+                                },
+                                calculable: true,
+                                xAxis: [
+                                    {
+                                        type: 'category',
+                                        boundaryGap: false,
+                                        data: json.price_key
+                                    }
+                                ],
+                                yAxis: [
+                                    {
+                                        type: 'value',
+                                        axisLabel: {
+                                            formatter: '{value}'
+                                        }
+                                    }
+                                ],
+                                series: [
+                                    {
+                                        name: '成交额',
+                                        type: 'line',
+                                        data: json.price_value,
+                                        markPoint: {
+                                            data: [
+                                                {type: 'max', name: '最大值'},
+                                                {type: 'min', name: '最小值'}
+                                            ]
+                                        },
+                                        markLine: {
+                                            data: [
+                                                {type: 'average', name: '平均值'}
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        name: '成交量',
+                                        type: 'line',
+                                        data: json.count_value,
+                                        markLine: {
+                                            data: [
+                                                {type: 'average', name: '平均值'}
+                                            ]
+                                        }
+                                    }
+                                ]
+                            };
+                            lineChart.setOption(lineoption);
+                            lineChart.resize();
+                        });
+                        $("#echarts-line-chart-loading").hide();
+                        $("#echarts-line-chart").show();
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+{template '_footer'}

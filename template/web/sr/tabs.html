@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<style type='text/css'>
+	.order-list a {
+		position: relative;
+	}
+	.order-list span  {
+	 
+	float:right;margin-right:20px;
+	}
+</style>
+<div class='menu-header'>维权</div>
+<ul class='order-list'>
+    <li {if $_W['routes']=='sr.sr_going'}class="active"{/if}>
+        <a href="{php echo webUrl('sr/sr_going')}">维权申请 <span class='text-danger sr_going'>--</span></a>
+    </li>
+
+    <li {if $_W['routes']=='sr.sr_done'}class="active"{/if}>
+        <a href="{php echo webUrl('sr/sr_done')}">维权完成 <span class="sr_done">--</span></a>
+    </li>
+      </ul>
+
+<script>
+    $(function () {
+        $.ajax({type: "GET",url: "{php echo webUrl('order/list/ajaxgettotals')}",dataType:"json",success: function(data){
+                var res = data.result;
+                $("span.sr_going").text(res.sr_going);
+                $("span.sr_done").text(res.sr_done);
+            }
+        });
+    });
+</script>

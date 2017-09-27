@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 2017. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>服务订单详情</title>
+    <link rel="icon" href="{$_W['appicon']}" mce_href="{$_W['appicon']}" type="image/x-icon">
+    <link rel="shortcut icon" href="{$_W['appicon']}" mce_href="{$_W['appicon']}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="../addons/ching_leeing/template/mobile/default/static/css/example.css"/>
+    <style type="text/css">
+        .left_icon {
+            line-height: 46px;
+            margin-left: 17px;
+            color: #999;
+            font-size: 18px;
+        }
+
+        .left_icon:before {
+            content: " ";
+            display: inline-block;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            height: 10px;
+            width: 10px;
+            border-width: 0 0 2px 2px;
+            border-color: #c7c7cc;
+            border-style: solid;
+            position: relative;
+            /* top: 0px;
+            position: absolute; */
+            top: 0px;
+            margin-right: 1px;
+        }
+
+        .banner {
+            background: rgb(255, 238, 213);
+            color: rgb(232, 103, 62);
+            font-size: 30px;
+            height: 100px;
+            width: 100%;
+            overflow: hidden;
+            /*border-top: solid 1px rgb(218, 218, 218); */
+            /* line-height: 100px; */
+            position: relative;
+        }
+
+        .ad-tips {
+            position: absolute;
+            top: 3px;
+            right: 5px;
+            margin-right: 3px;
+            margin-top: 3px;
+            display: inline-block;
+            padding: .3em .5em .3em;
+            font-size: 12px;
+            line-height: 1;
+            color: #fff;
+            background-color: #999;
+            text-align: center;
+            vertical-align: baseline;
+            border-radius: .95em;
+            filter: alpha(opacity=60);
+            -moz-opacity: 0.6;
+            -khtml-opacity: 0.6;
+            opacity: 0.6;
+        }
+    </style>
+
+</head>
+<body ontouchstart="">
+
+<div id="div_weui_tab" class="weui_tab">
+
+    <div style="height:46px;padding:0;" class="weui_navbar">
+        <div onclick="goBack();"
+             style="position: absolute;top: 0px;left:0px;display: inline-block;height:46px;line-height:46px;min-width:100px;">
+            <a class="left_icon">返回</a>
+        </div>
+    </div>
+
+    <div style="padding-bottom: 50px;padding-top: 46px;" class="weui_tab_bd">
+
+        <div style="" class="container" id="container">
+
+            <input id="order_status" value="{$orderinfo['status']}" hidden="hidden"></input>
+            <input id="order_out_trade_no" value="{$orderinfo['ordersn']}" hidden="hidden"></input>
+
+
+            <div class="cell">
+                <div style="margin-bottom:70px;" class="bd">
+
+                    {php unset($banner);$banner = m('common')->getBanner();}
+                    {if !empty($banner)}
+                    <div class="weui_cells" style="margin-top:0px;">
+                        <div class="weui_cell" style="padding:0">
+                            <div class="text-center banner">
+                                <a href="{php echo $banner['link']}">
+                                    <img style="height:100%;width:100%" src="{php echo tomedia($banner['thumb'])}" alt="">
+                                </a>
+                            </div>
+                            <div class="ad-tips">广告</div>
+                        </div>
+                    </div>
+                    {/if}
+
+
+                    <div class="weui_cells_title">联系人信息{if ($orderinfo['status'] == 3)||($orderinfo['status'] == 8)}<a href="javascript:rc_request('{$_W['openid']}');" style="float:right;color:#586c94">想要投诉?</a>{/if}</div>
+                    <div class="weui_cells">
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>{$orderinfo['postname']}<a style="margin-left:15px;color:#586c94;-webkit-tap-highlight-color:rgba(0,0,0,0)" href="tel://{$orderinfo['mobile']}">{$orderinfo['mobile']}</a></p>
+                            </div>
+                        </div>
+                        <div id="package_type_select_tips" class="weui_cells_tips"
+                             style="font-size:17px;margin-top:-9px;margin-bottom:3px;text-align: left;">{$orderinfo['school']}&nbsp;{$orderinfo['address']}
+                        </div>
+
+                    </div>
+
+
+                    <div class="weui_cells_title">订单信息</div>
+                    <div class="weui_cells">
+
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>服务类型</p>
+                            </div>
+                            <div class="weui_cell_ft">{$orderinfo['servicetypename']}</div>
+                        </div>
+                        <div class="weui_cell">
+                            <div style="width:100%;min-height:24px;" class="weui_cell_hd">
+                                <div style="position:absolute;dispaly:inline-block;float:left;">服务内容</div>
+                                <div style="dispaly:inline-block;color:#888;margin-left:100px;text-align: right;float:right;">
+                                    {$orderinfo['serviceabstract']}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>服务时间</p>
+                            </div>
+                            <div class="weui_cell_ft">{php echo m('service')->getExpire($orderinfo['servicetime'])}</div>
+                        </div>
+
+                        <div class="weui_cell">
+                            <div style="width:100%;min-height:24px;" class="weui_cell_hd">
+                                <div style="position:absolute;dispaly:inline-block;float:left;">服务要求</div>
+                                <div style="dispaly:inline-block;color:#888;margin-left:100px;text-align: right;float:right;">
+                                    {if !empty($orderinfo['servicedetail'])}{$orderinfo['servicedetail']}{else}无{/if}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>指定性别</p>
+                            </div>
+                            <div class="weui_cell_ft">
+                                {if $orderinfo['sexrequire'] == 2}女生{/if}
+                                {if $orderinfo['sexrequire'] == 1}男生{/if}
+                                {if $orderinfo['sexrequire'] == 0}无{/if}
+                            </div>
+                        </div>
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>订单总额</p>
+                            </div>
+                            <div class="weui_cell_ft">{php echo sprintf("%01.2f",$orderinfo['price']+$orderinfo['extraprice']);}元</div>
+                        </div>
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>服务小费</p>
+                            </div>
+                            <div class="weui_cell_ft">{$orderinfo['price']}元</div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="weui_cells_title">其他信息</div>
+                    <div class="weui_cells" style="margin-top:11px;">
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>订单编号</p>
+                            </div>
+                            <div class="weui_cell_ft">{$orderinfo['ordersn']}</div>
+                        </div>
+
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>下单时间</p>
+                            </div>
+                            <div class="weui_cell_ft">{php echo getTime($orderinfo['createtime'])}</div>
+                        </div>
+
+                        {if !empty($orderinfo['orderrectime'])}
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>接单时间</p>
+                            </div>
+                            <div class="weui_cell_ft">{php echo getTime($orderinfo['orderrectime'])}</div>
+                        </div>
+                        {/if}
+                        {if !empty($orderinfo['orderstarttime'])}
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>服务开始时间</p>
+                            </div>
+                            <div class="weui_cell_ft">{php echo getTime($orderinfo['orderstarttime'])}</div>
+                        </div>
+                        {/if}
+                        {if !empty($orderinfo['orderfinishtime'])}
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>服务完成时间</p>
+                            </div>
+                            <div class="weui_cell_ft">{php echo getTime($orderinfo['orderfinishtime'])}</div>
+                        </div>
+                        {/if}
+                        {if !empty($orderinfo['finishtime'])}
+                        <div class="weui_cell">
+                            <div class="weui_cell_bd weui_cell_primary">
+                                <p>订单完成时间</p>
+                            </div>
+                            <div class="weui_cell_ft">{php echo getTime($orderinfo['finishtime'])}</div>
+                        </div>
+                        {/if}
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div id="bottom_tabbar" class="weui_tabbar" style="z-index:1;height:50px">
+        {if $orderinfo['sr_status'] == 0}
+            {if $orderinfo['status'] == -1}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">已取消</a>{/if}
+            {if $orderinfo['status'] == 1}
+            <a href="tel:{$orderinfo['mobile']}" style="width:50%;font-size: 18px;max-width:50%" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">电话联系</a>
+            <a onclick="changeOrderStatus();" style="width:50%;font-size: 18px;max-width:50%" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">开始服务</a>
+            <div style="position: absolute;left: 50%;top: 0;width: 1px;height: 100%;border-left: 1px solid #d5d5d6;color: #d5d5d6;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(.5);transform: scaleX(.5);"></div>
+            {/if}
+            {if $orderinfo['status'] == 2}
+            <a href="tel:{$orderinfo['mobile']}" style="width:50%;font-size: 18px;max-width:50%" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">电话联系</a>
+            <a onclick="changeOrderStatus();" style="width:50%;font-size: 18px;max-width:50%" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">完成服务</a>
+            <div style="position: absolute;left: 50%;top: 0;width: 1px;height: 100%;border-left: 1px solid #d5d5d6;color: #d5d5d6;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(.5);transform: scaleX(.5);"></div>
+            {/if}
+            {if $orderinfo['status'] == 3}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">等待对方确认</a>{/if}
+            {if $orderinfo['status'] == 4}<a onclick="window.location.href='{php echo mobileLink('orderhall/ordereval')}&outTradeNo={$orderinfo['ordersn']}&t='+new Date().getTime();" style="width:100%;font-size: 18px;max-width:100%;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">给Ta评价</a>{/if}
+            {if $orderinfo['status'] == 5}<a style="width:100%;font-size: 18px;max-width:100%;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">已完成</a>{/if}
+            {if $orderinfo['status'] == 8}
+            <a onclick="confirmRefundRequest();" style="width:50%;font-size: 18px;max-width:50%" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">同意退款</a>
+            <a onclick="refuseRefundRequest();" style="width:50%;font-size: 18px;max-width:50%" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">拒绝退款</a>
+            <div style="position: absolute;left: 50%;top: 0;width: 1px;height: 100%;border-left: 1px solid #d5d5d6;color: #d5d5d6;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(.5);transform: scaleX(.5);"></div>
+            {/if}
+            {if $orderinfo['status'] == 9}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">已退款</a>{/if}
+        {else}
+            {if $orderinfo['sr_status'] == 5}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">对方正在申诉</a>{/if}
+            {if $orderinfo['sr_status'] == 4}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">已关闭</a>{/if}
+            {if $orderinfo['sr_status'] == 3}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">对方申诉失败</a>{/if}
+            {if $orderinfo['sr_status'] == 6}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">申诉中</a>{/if}
+            {if $orderinfo['sr_status'] == 7}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">申诉成功</a>{/if}
+            {if $orderinfo['sr_status'] == 8}<a style="width:100%;font-size: 18px;max-width:100%;    background: #999;" class="btn-right-block btn-right-block-new  box-flex-c" id="order_submit">已关闭</a>{/if}
+        {/if}
+    </div>
+
+</div>
+
+
+{if ($orderinfo['status'] != 4)&&($orderinfo['status'] >= 1)&&($orderinfo['status'] != 9)&&($orderinfo['status'] != 5)}
+<div onclick="window.location.href='{php echo mobileLink('chat')}&role=1&tradeNo={$orderinfo['ordersn']}&t='+new Date().getTime();"
+     id="open_chat_icon"
+     style="position: absolute;display: inline-block;width: 56px;height: 56px;z-index:10;bottom: 56px;cursor: pointer;overflow: hidden;right:10px">
+    <img style="width:100%;height:100%;-webkit-tap-highlight-color:rgba(0,0,0,0);"
+         src="../addons/ching_leeing/template/mobile/default/static/images/Round-Messages-Chat.png" alt="">
+</div>
+<div id="chat_icon_tips" style="font-size: 14px;color:#454545;background-color: #fff6e9;border-radius: 20px;border: 1px solid #f0d9b4;position: absolute;display: inline-block;padding:0 32px 0 12px;min-width: 100px;height: 34px;line-height:34px;z-index:5;bottom: 66px;cursor: pointer;overflow: hidden;right:40px">
+    {if $msg>0}您有新的未读消息{else}点击图标免费给对方发消息{/if}
+</div>
+{/if}
+
+
+<!-- loading toast -->
+<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <div class="weui_loading">
+            <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+            <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+        </div>
+        <p id="weui_loading_tips" class="weui_toast_content">提交资料中</p>
+    </div>
+</div>
+
+<!--BEGIN dialog-->
+<div class="weui_dialog_confirm" id="dialog_confirm_tips" style="display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">操作确认</strong></div>
+        <div class="weui_dialog_bd" id="tips_content">信息内容?</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:$('#dialog_confirm_tips').hide();on_pay_state = false;" class="weui_btn_dialog default">取消</a>
+            <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+
+<div class="weui_dialog_confirm" id="dialog_defriend_confirm_tips" style="display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">投诉确认</strong></div>
+        <div class="weui_dialog_bd">点击投诉后，订单状态将由管理员判定，确认操作吗?</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:$('#dialog_defriend_confirm_tips').hide();" class="weui_btn_dialog default">取消</a>
+            <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+
+<!--BEGIN tips_dialog-->
+<div class="weui_dialog_alert" id="commom_dialog_tips" style="z-index:10;display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">弹窗标题</strong></div>
+        <div class="weui_dialog_bd">弹窗内容，告知当前页面信息等</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../addons/ching_leeing/template/mobile/default/static/js/zepto.min.js"></script>
+<script>
+
+    function goBack() {
+        window.history.go(-1);
+    }
+
+
+    function showCommomDialogTips(title, content) {
+        $('#commom_dialog_tips .weui_dialog_title').text(title);
+        $('#commom_dialog_tips .weui_dialog_bd').html(content);
+        $('#commom_dialog_tips').show().on('click', '.weui_btn_dialog', function () {
+            $('#commom_dialog_tips').off('click').hide();
+        });
+    }
+
+    function addToBlackList(openid) {
+
+        $('#dialog_defriend_confirm_tips').show().on('click', '.weui_btn_dialog.primary', function () {
+            $('#dialog_defriend_confirm_tips').off('click').hide();
+            $("#weui_loading_tips").html("正在设置");
+            $('#loadingToast').show();
+
+            $.getJSON('{php echo mobileLink('orderhall/addToBlackList')}&openid=' + openid, function (res) {
+                $('#loadingToast').hide();
+                if (res.code == 0) {
+                    showCommomDialogTips("拉黑成功", "你已经成功将对方加入黑名单");
+                } else {
+                    showCommomDialogTips("拉黑失败", "请刷新页面重试!");
+                }
+            });
+        });
+    }
+    function confirmRefundRequest() {
+        var out_trade_no = $("#order_out_trade_no").val();
+        $('#tips_content').text('确认同意退款?');
+
+        $('#dialog_confirm_tips').show().on('click', '.weui_btn_dialog.primary', function () {
+            $('#dialog_confirm_tips').off('click').hide();
+            $("#weui_loading_tips").html("拼命加载中");
+            $('#loadingToast').show();
+            $.getJSON('{php echo mobileLink('orderhall/changeOrderStatusServant')}&outTradeNo=' + out_trade_no + '&status=9', function (res) {
+                $('#loadingToast').hide();
+                if (res.code == 0) {
+                    $("#weui_loading_tips").html("操作成功<br/>正在刷新");
+                    $('#loadingToast').show();
+                    window.location.href = "{php echo mobileLink('orderhall/getuserorderdetail')}&outTradeNo=" + out_trade_no + "&t=" + (new Date().getTime());
+                } else {
+                    showCommomDialogTips(res.title, res.tips);
+                }
+
+            });
+        });
+    };
+    function refuseRefundRequest() {
+        var out_trade_no = $("#order_out_trade_no").val();
+        $('#tips_content').text('确认同意退款?');
+
+        $('#dialog_confirm_tips').show().on('click', '.weui_btn_dialog.primary', function () {
+            $('#dialog_confirm_tips').off('click').hide();
+            $("#weui_loading_tips").html("拼命加载中");
+            $('#loadingToast').show();
+            $.getJSON('{php echo mobileLink('orderhall/changeOrderStatusServant')}&outTradeNo=' + out_trade_no + '&status=3', function (res) {
+                $('#loadingToast').hide();
+                if (res.code == 0) {
+                    $("#weui_loading_tips").html("操作成功<br/>正在刷新");
+                    $('#loadingToast').show();
+                    window.location.href = "{php echo mobileLink('orderhall/getuserorderdetail')}&outTradeNo=" + out_trade_no + "&t=" + (new Date().getTime());
+                } else {
+                    showCommomDialogTips(res.title, res.tips);
+                }
+
+            });
+        });
+    };
+    function rc_request(){
+        var out_trade_no = $("#order_out_trade_no").val();
+        $('#dialog_defriend_confirm_tips').show().on('click', '.weui_btn_dialog.primary', function () {
+            $('#dialog_defriend_confirm_tips').off('click').hide();
+            $("#weui_loading_tips").html("请稍候");
+            $('#loadingToast').show();
+            $.getJSON('{php echo mobileLink('orderhall/changeOrderStatusServant')}&outTradeNo=' + out_trade_no + '&status=506', function (res) {
+                $('#loadingToast').hide();
+                if (res.code == 0) {
+                    $("#weui_loading_tips").html("操作成功<br/>正在刷新");
+                    $('#loadingToast').show();
+                    window.location.href = "{php echo mobileLink('orderhall/getorderdetail')}&outTradeNo=" + out_trade_no + "&t=" + (new Date().getTime());
+                } else {
+                    showCommomDialogTips(res.title, res.tips);
+                }
+
+            });
+        });
+    }
+    function changeOrderStatus() {
+        var status = -1;
+        var out_trade_no = $("#order_out_trade_no").val();
+        if ($("#order_status").val() == 1) {
+            status = 2;
+        } else if ($("#order_status").val() == 2) {
+            status = 3;
+        } else if ($("#order_status").val() == 3) {
+            status = 4;
+        } else if ($("#order_status").val() == 8) {
+            status = 9;
+        }
+
+        if (status == 2) {
+            $('#tips_content').text('确认开始服务?');
+        } else if (status == 3) {
+            $('#tips_content').html('确认服务已经完成?<br/>如果用户未确认订单完成，48小时后将会自动确认订单完成。');
+        } else if (status == 9) {
+            $('#tips_content').text('确认同意退款?');
+        } else {
+            showCommomDialogTips("操作失败", "操作出错，请刷新页面重试!");
+            return;
+        }
+
+        $('#dialog_confirm_tips').show().on('click', '.weui_btn_dialog.primary', function () {
+            $('#dialog_confirm_tips').off('click').hide();
+            $("#weui_loading_tips").html("拼命加载中");
+            $('#loadingToast').show();
+            $.getJSON('{php echo mobileLink('orderhall/changeOrderStatusServant')}&outTradeNo=' + out_trade_no + '&status=' + status, function (res) {
+                $('#loadingToast').hide();
+                if (res.code == 0) {
+                    $("#weui_loading_tips").html("操作成功<br/>正在刷新");
+                    $('#loadingToast').show();
+                    window.location.href = "{php echo mobileLink('orderhall/getuserorderdetail')}&outTradeNo=" + out_trade_no + "&t=" + (new Date().getTime());
+                } else {
+                    showCommomDialogTips(res.title, res.tips);
+                }
+
+            });
+        });
+    };
+
+</script>
+<script language='javascript'>
+    $(function () {
+        $.getJSON("{php echo mobileUrl('util/task')}");
+    })
+</script>
+</html>
